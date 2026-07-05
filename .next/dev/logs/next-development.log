@@ -1,0 +1,2 @@
+{"timestamp":"00:00:00.718","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:09.713","source":"Browser","level":"LOG","message":"Failed to fetch _devMiddlewareManifest {}"}

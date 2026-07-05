@@ -1,0 +1,174 @@
+/* [project]/src/styles/globals.css [client] (css) */
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.bg-pattern {
+  background-image: radial-gradient(#2d3449 1px, #0000 1px);
+  background-size: 24px 24px;
+}
+
+.glass-panel {
+  -webkit-backdrop-filter: blur(12px);
+  background: #131b2ea6;
+  border: 1px solid #d2bbff14;
+}
+
+.neon-glow {
+  box-shadow: 0 0 15px #d2bbff, inset 0 0 5px #d2bbff;
+}
+
+.neon-glow-hover:hover {
+  box-shadow: 0 0 25px #7c3aed, inset 0 0 10px #7c3aed;
+}
+
+.glow-valorant:hover {
+  border-color: #ff4655;
+  box-shadow: 0 0 30px -5px #ff465573;
+}
+
+.glow-mlbb:hover {
+  border-color: #00f1fe;
+  box-shadow: 0 0 30px -5px #00f1fe66;
+}
+
+.glow-pokemon:hover {
+  border-color: #e9c400;
+  box-shadow: 0 0 30px -5px #e9c40066;
+}
+
+.glow-lol:hover {
+  border-color: #d2bbff;
+  box-shadow: 0 0 30px -5px #d2bbff66;
+}
+
+.glow-tekken:hover {
+  border-color: #ffb4ab;
+  box-shadow: 0 0 30px -5px #ffb4ab66;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #060e20;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d3449;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #454655;
+}
+
+::selection {
+  color: #ede0ff;
+  background: #7c3aed;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #dae2fd;
+  -webkit-font-smoothing: antialiased;
+  background-color: #0b1326;
+  font-family: Hanken Grotesk, sans-serif;
+  overflow-x: hidden;
+}
+
+.material-symbols-outlined {
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  vertical-align: middle;
+  direction: ltr;
+  font-family: Material Symbols Outlined;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  display: inline-block;
+}
+
+@keyframes pulse-red {
+  0% {
+    box-shadow: 0 0 #ff4655b3;
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px #ff465500;
+  }
+
+  100% {
+    box-shadow: 0 0 #ff465500;
+  }
+}
+
+.animate-pulse-red {
+  animation: 1s infinite pulse-red;
+}
+
+@keyframes float {
+  0% {
+    opacity: 0;
+    transform: translateY(0)scale(1);
+  }
+
+  50% {
+    opacity: .5;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-100px)scale(1.5);
+  }
+}
+
+.animate-float {
+  animation: 3s linear infinite float;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: .4s ease-out both fade-in;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: .3s ease-out both slide-in;
+}
+
+/*# sourceMappingURL=src_styles_globals_0rqpain.css.map*/
