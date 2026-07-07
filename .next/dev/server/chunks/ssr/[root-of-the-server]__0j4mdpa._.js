@@ -191,12 +191,6 @@ __turbopack_context__.s([
     ()=>ALL_QUESTIONS,
     "GAMES",
     ()=>GAMES,
-    "MOCK_ACHIEVEMENTS",
-    ()=>MOCK_ACHIEVEMENTS,
-    "MOCK_LEADERBOARD",
-    ()=>MOCK_LEADERBOARD,
-    "MOCK_USER_PROFILE",
-    ()=>MOCK_USER_PROFILE,
     "QUIZ_MODES",
     ()=>QUIZ_MODES
 ]);
@@ -207,10 +201,8 @@ const GAMES = [
         shortName: 'VAL',
         genre: 'Tactical Shooter',
         accentColor: '#ff4655',
-        glowClass: 'glow-valorant',
-        description: "Test your knowledge of agents, maps, and voice lines from Riot's tactical shooter.",
-        questionCount: 120,
-        emoji: '🎯'
+        emoji: '🎯',
+        description: 'Identify VALORANT agents and maps.'
     },
     {
         id: 'mobile-legends',
@@ -218,10 +210,8 @@ const GAMES = [
         shortName: 'MLBB',
         genre: 'Mobile MOBA',
         accentColor: '#00f1fe',
-        glowClass: 'glow-mlbb',
-        description: 'Identify heroes, skills, and lore from the arena of Mobile Legends: Bang Bang.',
-        questionCount: 95,
-        emoji: '⚔️'
+        emoji: '⚔️',
+        description: 'Identify MLBB heroes and battlefields.'
     },
     {
         id: 'pokemon',
@@ -229,10 +219,8 @@ const GAMES = [
         shortName: 'PKM',
         genre: 'RPG',
         accentColor: '#e9c400',
-        glowClass: 'glow-pokemon',
-        description: "Prove you're a true Pokémon Master by identifying species, types, and moves.",
-        questionCount: 200,
-        emoji: '⚡'
+        emoji: '⚡',
+        description: 'Identify Pokémon species and regions.'
     },
     {
         id: 'league-of-legends',
@@ -240,10 +228,8 @@ const GAMES = [
         shortName: 'LoL',
         genre: 'MOBA',
         accentColor: '#d2bbff',
-        glowClass: 'glow-lol',
-        description: "Demonstrate mastery of champions, abilities, and lore from the Summoner's Rift.",
-        questionCount: 150,
-        emoji: '🏆'
+        emoji: '🏆',
+        description: 'Identify LoL champions and maps.'
     },
     {
         id: 'tekken',
@@ -251,116 +237,135 @@ const GAMES = [
         shortName: 'TK',
         genre: 'Fighting',
         accentColor: '#ffb4ab',
-        glowClass: 'glow-tekken',
-        description: "Show your expertise in Tekken's fighters, moves, and legendary storylines.",
-        questionCount: 80,
-        emoji: '👊'
+        emoji: '👊',
+        description: 'Identify Tekken fighters and stages.'
     }
 ];
 const QUIZ_MODES = [
     {
-        id: 'voice-line',
-        name: 'Voice Line Guess',
-        description: 'Listen to character voice lines and identify who said it.',
-        icon: 'record_voice_over',
-        difficulty: 'Hard',
-        timeLimit: 15,
-        questionCount: 10
-    },
-    {
         id: 'character-guess',
         name: 'Character Guess',
-        description: 'Identify characters from silhouettes, descriptions, or abilities.',
+        description: 'Look at the picture and identify the character.',
         icon: 'person_search',
-        difficulty: 'Medium',
         timeLimit: 20,
         questionCount: 10
     },
     {
         id: 'map-region',
         name: 'Map / Region / Stage',
-        description: 'Name the map, region, or stage from a screenshot or description.',
+        description: 'Identify the map, region, or stage from the picture.',
         icon: 'map',
-        difficulty: 'Medium',
         timeLimit: 20,
         questionCount: 10
-    },
-    {
-        id: 'mixed-quiz',
-        name: 'Mixed Quiz',
-        description: 'A blend of all question types for a well-rounded challenge.',
-        icon: 'shuffle',
-        difficulty: 'Variable',
-        timeLimit: 20,
-        questionCount: 15
-    },
-    {
-        id: 'daily-challenge',
-        name: 'Daily Challenge',
-        description: 'A new set of curated questions every 24 hours. Compete globally.',
-        icon: 'today',
-        difficulty: 'Variable',
-        timeLimit: 20,
-        questionCount: 10,
-        badge: 'DAILY'
-    },
-    {
-        id: 'endless',
-        name: 'Endless Mode',
-        description: 'Keep going until you get three wrong. How far can you make it?',
-        icon: 'all_inclusive',
-        difficulty: 'Variable',
-        timeLimit: 15,
-        questionCount: 999,
-        badge: 'ENDLESS'
     }
 ];
-const VALORANT_QUESTIONS = [
+// ─── VALORANT Questions ───────────────────────────────────────────────────────
+const VALORANT_CHARACTER = [
     {
-        id: 'val-1',
+        id: 'val-c-1',
         gameId: 'valorant',
-        type: 'voice-line',
-        prompt: '"Watch them run."',
-        subPrompt: 'Which VALORANT agent says this when activating their ultimate ability?',
-        difficulty: 'Hard',
-        points: 300,
-        hint: 'This agent is a Duelist known for swift movement.',
+        type: 'character',
+        prompt: 'Who is this VALORANT agent?',
+        image: '/images/valorant/agents/jett.jpg',
+        difficulty: 'Easy',
+        points: 100,
         answers: [
             {
                 id: 'a',
                 text: 'Jett',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Neon',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Reyna',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Phoenix',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'val-c-2',
+        gameId: 'valorant',
+        type: 'character',
+        prompt: 'Who is this VALORANT agent?',
+        image: '/images/valorant/agents/sage.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Skye',
                 isCorrect: false
             },
             {
                 id: 'b',
                 text: 'Sage',
-                isCorrect: false
+                isCorrect: true
             },
             {
                 id: 'c',
-                text: 'Phoenix',
+                text: 'Breach',
                 isCorrect: false
             },
             {
                 id: 'd',
-                text: 'Omen',
-                isCorrect: true
+                text: 'Killjoy',
+                isCorrect: false
             }
         ]
     },
     {
-        id: 'val-2',
+        id: 'val-c-3',
         gameId: 'valorant',
-        type: 'character-image',
-        prompt: 'Which agent controls wind and excels in movement-based dueling?',
-        subPrompt: 'Identify this VALORANT agent by their signature ability.',
-        difficulty: 'Easy',
-        points: 100,
-        hint: 'This agent is from South Korea.',
+        type: 'character',
+        prompt: 'Who is this VALORANT agent?',
+        image: '/images/valorant/agents/omen.jpg',
+        difficulty: 'Medium',
+        points: 200,
         answers: [
             {
                 id: 'a',
-                text: 'Jett',
+                text: 'Viper',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Astra',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Omen',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Harbor',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'val-c-4',
+        gameId: 'valorant',
+        type: 'character',
+        prompt: 'Who is this VALORANT agent?',
+        image: '/images/valorant/agents/reyna.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Reyna',
                 isCorrect: true
             },
             {
@@ -375,111 +380,267 @@ const VALORANT_QUESTIONS = [
             },
             {
                 id: 'd',
-                text: 'Reyna',
+                text: 'Jett',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'val-3',
+        id: 'val-c-5',
         gameId: 'valorant',
-        type: 'map',
-        prompt: 'Which map features a large outdoor site called "B Long" and a cable car aesthetic?',
-        subPrompt: 'Identify the VALORANT map.',
+        type: 'character',
+        prompt: 'Who is this VALORANT agent?',
+        image: '/images/valorant/agents/cypher.jpg',
         difficulty: 'Medium',
         points: 200,
         answers: [
             {
                 id: 'a',
-                text: 'Ascent',
+                text: 'Chamber',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Haven',
+                text: 'Breach',
                 isCorrect: false
             },
             {
                 id: 'c',
-                text: 'Bind',
-                isCorrect: false
+                text: 'Cypher',
+                isCorrect: true
             },
             {
                 id: 'd',
-                text: 'Icebox',
-                isCorrect: true
+                text: 'Gekko',
+                isCorrect: false
             }
         ]
     },
     {
-        id: 'val-4',
+        id: 'val-c-6',
         gameId: 'valorant',
-        type: 'trivia',
-        prompt: "What is the name of Sage's healing ability?",
-        subPrompt: 'Name the specific ability, not the ultimate.',
+        type: 'character',
+        prompt: 'Who is this VALORANT agent?',
+        image: '/images/valorant/agents/sova.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Sova',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Skye',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Fade',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'KAY/O',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'val-c-7',
+        gameId: 'valorant',
+        type: 'character',
+        prompt: 'Who is this VALORANT agent?',
+        image: '/images/valorant/agents/killjoy.jpg',
         difficulty: 'Easy',
         points: 100,
         answers: [
             {
                 id: 'a',
-                text: 'Healing Orb',
-                isCorrect: true
-            },
-            {
-                id: 'b',
-                text: 'Revival',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Mend',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: 'Restore',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'val-5',
-        gameId: 'valorant',
-        type: 'voice-line',
-        prompt: '"They\'ll never see me coming."',
-        subPrompt: 'Which stealthy VALORANT agent says this?',
-        difficulty: 'Hard',
-        points: 300,
-        hint: 'This agent can teleport and create decoys.',
-        answers: [
-            {
-                id: 'a',
-                text: 'Omen',
+                text: 'Sage',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Yoru',
-                isCorrect: true
-            },
-            {
-                id: 'c',
                 text: 'Cypher',
                 isCorrect: false
             },
             {
+                id: 'c',
+                text: 'Chamber',
+                isCorrect: false
+            },
+            {
                 id: 'd',
+                text: 'Killjoy',
+                isCorrect: true
+            }
+        ]
+    },
+    {
+        id: 'val-c-8',
+        gameId: 'valorant',
+        type: 'character',
+        prompt: 'Who is this VALORANT agent?',
+        image: '/images/valorant/agents/viper.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Viper',
+                isCorrect: true
+            },
+            {
+                id: 'b',
                 text: 'Astra',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Brimstone',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Harbor',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'val-6',
+        id: 'val-c-9',
         gameId: 'valorant',
-        type: 'trivia',
-        prompt: 'Which VALORANT map was the first ever released with the game at launch?',
-        subPrompt: 'Think about the original map pool.',
+        type: 'character',
+        prompt: 'Who is this VALORANT agent?',
+        image: '/images/valorant/agents/raze.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Neon',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Raze',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Phoenix',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Jett',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'val-c-10',
+        gameId: 'valorant',
+        type: 'character',
+        prompt: 'Who is this VALORANT agent?',
+        image: '/images/valorant/agents/chamber.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Cypher',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Fade',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Chamber',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Sova',
+                isCorrect: false
+            }
+        ]
+    }
+];
+const VALORANT_MAP = [
+    {
+        id: 'val-m-1',
+        gameId: 'valorant',
+        type: 'map',
+        prompt: 'Which VALORANT map is this?',
+        image: '/images/valorant/maps/ascent.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Ascent',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Bind',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Haven',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Split',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'val-m-2',
+        gameId: 'valorant',
+        type: 'map',
+        prompt: 'Which VALORANT map is this?',
+        image: '/images/valorant/maps/bind.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Fracture',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Bind',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Pearl',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Lotus',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'val-m-3',
+        gameId: 'valorant',
+        type: 'map',
+        prompt: 'Which VALORANT map is this?',
+        image: '/images/valorant/maps/haven.jpg',
         difficulty: 'Medium',
         points: 200,
         answers: [
@@ -490,102 +651,43 @@ const VALORANT_QUESTIONS = [
             },
             {
                 id: 'b',
-                text: 'Bind',
-                isCorrect: true
+                text: 'Breeze',
+                isCorrect: false
             },
             {
                 id: 'c',
                 text: 'Haven',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: 'Ascent',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'val-7',
-        gameId: 'valorant',
-        type: 'character-image',
-        prompt: 'Which agent hails from Morocco and specializes in camera traps and surveillance?',
-        difficulty: 'Medium',
-        points: 200,
-        answers: [
-            {
-                id: 'a',
-                text: 'Killjoy',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Cypher',
                 isCorrect: true
             },
             {
-                id: 'c',
-                text: 'Chamber',
-                isCorrect: false
-            },
-            {
                 id: 'd',
-                text: 'Breach',
+                text: 'Icebox',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'val-8',
-        gameId: 'valorant',
-        type: 'trivia',
-        prompt: 'What is the maximum number of rounds in a standard Valorant competitive match?',
-        difficulty: 'Easy',
-        points: 100,
-        answers: [
-            {
-                id: 'a',
-                text: '24',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: '30',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: '25',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: '30 (with overtime)',
-                isCorrect: true
-            }
-        ]
-    },
-    {
-        id: 'val-9',
+        id: 'val-m-4',
         gameId: 'valorant',
         type: 'map',
-        prompt: 'Which map is set in Venice, Italy, and features a large central courtyard with a mid-gate mechanic?',
+        prompt: 'Which VALORANT map is this?',
+        image: '/images/valorant/maps/icebox.jpg',
         difficulty: 'Medium',
         points: 200,
         answers: [
             {
                 id: 'a',
-                text: 'Ascent',
-                isCorrect: true
-            },
-            {
-                id: 'b',
-                text: 'Fracture',
+                text: 'Breeze',
                 isCorrect: false
             },
             {
+                id: 'b',
+                text: 'Icebox',
+                isCorrect: true
+            },
+            {
                 id: 'c',
-                text: 'Pearl',
+                text: 'Ascent',
                 isCorrect: false
             },
             {
@@ -596,42 +698,262 @@ const VALORANT_QUESTIONS = [
         ]
     },
     {
-        id: 'val-10',
+        id: 'val-m-5',
         gameId: 'valorant',
-        type: 'trivia',
-        prompt: 'Which controller agent can place stars on the map and pull them to create cosmic abilities?',
+        type: 'map',
+        prompt: 'Which VALORANT map is this?',
+        image: '/images/valorant/maps/split.jpg',
         difficulty: 'Easy',
         points: 100,
         answers: [
             {
                 id: 'a',
-                text: 'Viper',
+                text: 'Haven',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Omen',
+                text: 'Lotus',
                 isCorrect: false
             },
             {
                 id: 'c',
-                text: 'Astra',
+                text: 'Split',
                 isCorrect: true
             },
             {
                 id: 'd',
-                text: 'Harbor',
+                text: 'Pearl',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'val-m-6',
+        gameId: 'valorant',
+        type: 'map',
+        prompt: 'Which VALORANT map is this?',
+        image: '/images/valorant/maps/pearl.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Sunset',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Breeze',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Fracture',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Pearl',
+                isCorrect: true
+            }
+        ]
+    },
+    {
+        id: 'val-m-7',
+        gameId: 'valorant',
+        type: 'map',
+        prompt: 'Which VALORANT map is this?',
+        image: '/images/valorant/maps/lotus.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Lotus',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Fracture',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Bind',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Haven',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'val-m-8',
+        gameId: 'valorant',
+        type: 'map',
+        prompt: 'Which VALORANT map is this?',
+        image: '/images/valorant/maps/breeze.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Pearl',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Breeze',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Icebox',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Split',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'val-m-9',
+        gameId: 'valorant',
+        type: 'map',
+        prompt: 'Which VALORANT map is this?',
+        image: '/images/valorant/maps/sunset.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Lotus',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Bind',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Sunset',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Ascent',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'val-m-10',
+        gameId: 'valorant',
+        type: 'map',
+        prompt: 'Which VALORANT map is this?',
+        image: '/images/valorant/maps/fracture.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Haven',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Fracture',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Split',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Pearl',
                 isCorrect: false
             }
         ]
     }
 ];
-const POKEMON_QUESTIONS = [
+// ─── POKÉMON Questions ────────────────────────────────────────────────────────
+const POKEMON_CHARACTER = [
     {
-        id: 'pkm-1',
+        id: 'pkm-c-1',
         gameId: 'pokemon',
-        type: 'trivia',
-        prompt: 'Which Pokémon is known as the "Genetic Pokémon" and was created through DNA manipulation?',
+        type: 'character',
+        prompt: 'Which Pokémon is this?',
+        image: '/images/pokemon/characters/pikachu.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Pikachu',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Raichu',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Jolteon',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Pachirisu',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-c-2',
+        gameId: 'pokemon',
+        type: 'character',
+        prompt: 'Which Pokémon is this?',
+        image: '/images/pokemon/characters/charizard.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Dragonite',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Charizard',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Salamence',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Flygon',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-c-3',
+        gameId: 'pokemon',
+        type: 'character',
+        prompt: 'Which Pokémon is this?',
+        image: '/images/pokemon/characters/mewtwo.jpg',
         difficulty: 'Easy',
         points: 100,
         answers: [
@@ -652,16 +974,48 @@ const POKEMON_QUESTIONS = [
             },
             {
                 id: 'd',
-                text: 'Genesect',
+                text: 'Lugia',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'pkm-2',
+        id: 'pkm-c-4',
         gameId: 'pokemon',
-        type: 'character-image',
-        prompt: 'This Pokémon evolves from Eevee using a Thunder Stone. Which Pokémon is it?',
+        type: 'character',
+        prompt: 'Which Pokémon is this?',
+        image: '/images/pokemon/characters/gengar.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Haunter',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Mismagius',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Gengar',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Banette',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-c-5',
+        gameId: 'pokemon',
+        type: 'character',
+        prompt: 'Which Pokémon is this?',
+        image: '/images/pokemon/characters/eevee.jpg',
         difficulty: 'Easy',
         points: 100,
         answers: [
@@ -672,13 +1026,106 @@ const POKEMON_QUESTIONS = [
             },
             {
                 id: 'b',
+                text: 'Eevee',
+                isCorrect: true
+            },
+            {
+                id: 'c',
                 text: 'Vaporeon',
                 isCorrect: false
             },
             {
-                id: 'c',
-                text: 'Jolteon',
+                id: 'd',
+                text: 'Sylveon',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-c-6',
+        gameId: 'pokemon',
+        type: 'character',
+        prompt: 'Which Pokémon is this?',
+        image: '/images/pokemon/characters/lucario.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Riolu',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Lucario',
                 isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Machamp',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Mienshao',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-c-7',
+        gameId: 'pokemon',
+        type: 'character',
+        prompt: 'Which Pokémon is this?',
+        image: '/images/pokemon/characters/snorlax.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Munchlax',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Snorlax',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Blissey',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Wigglytuff',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-c-8',
+        gameId: 'pokemon',
+        type: 'character',
+        prompt: 'Which Pokémon is this?',
+        image: '/images/pokemon/characters/umbreon.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Espeon',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Umbreon',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Sylveon',
+                isCorrect: false
             },
             {
                 id: 'd',
@@ -688,374 +1135,857 @@ const POKEMON_QUESTIONS = [
         ]
     },
     {
-        id: 'pkm-3',
+        id: 'pkm-c-9',
         gameId: 'pokemon',
-        type: 'trivia',
-        prompt: 'What type combination does Charizard have in its original form (not Mega or Gigantamax)?',
-        difficulty: 'Medium',
-        points: 200,
-        answers: [
-            {
-                id: 'a',
-                text: 'Fire / Dragon',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Fire / Flying',
-                isCorrect: true
-            },
-            {
-                id: 'c',
-                text: 'Fire / Fighting',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: 'Pure Fire',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'pkm-4',
-        gameId: 'pokemon',
-        type: 'trivia',
-        prompt: 'Which move has the highest base power and can only be used once per battle?',
+        type: 'character',
+        prompt: 'Which Pokémon is this?',
+        image: '/images/pokemon/characters/garchomp.jpg',
         difficulty: 'Hard',
         points: 300,
         answers: [
             {
                 id: 'a',
-                text: 'Hyper Beam',
+                text: 'Salamence',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Explosion',
+                text: 'Flygon',
                 isCorrect: false
             },
             {
                 id: 'c',
-                text: 'V-create',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: 'Eruption',
-                isCorrect: true
-            }
-        ]
-    },
-    {
-        id: 'pkm-5',
-        gameId: 'pokemon',
-        type: 'map',
-        prompt: 'In which Pokémon game was the Johto region first introduced?',
-        difficulty: 'Easy',
-        points: 100,
-        answers: [
-            {
-                id: 'a',
-                text: 'Pokémon Yellow',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Pokémon Gold & Silver',
+                text: 'Garchomp',
                 isCorrect: true
             },
             {
-                id: 'c',
-                text: 'Pokémon Crystal',
-                isCorrect: false
-            },
-            {
                 id: 'd',
-                text: 'Pokémon FireRed & LeafGreen',
+                text: 'Dragonite',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'pkm-6',
+        id: 'pkm-c-10',
         gameId: 'pokemon',
-        type: 'trivia',
-        prompt: 'What is the National Pokédex number of Pikachu?',
-        difficulty: 'Easy',
-        points: 100,
-        answers: [
-            {
-                id: 'a',
-                text: '#025',
-                isCorrect: true
-            },
-            {
-                id: 'b',
-                text: '#001',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: '#049',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: '#133',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'pkm-7',
-        gameId: 'pokemon',
-        type: 'trivia',
-        prompt: 'Which legendary Pokémon is said to represent time in the Sinnoh region?',
-        difficulty: 'Medium',
-        points: 200,
-        answers: [
-            {
-                id: 'a',
-                text: 'Palkia',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Arceus',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Dialga',
-                isCorrect: true
-            },
-            {
-                id: 'd',
-                text: 'Giratina',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'pkm-8',
-        gameId: 'pokemon',
-        type: 'trivia',
-        prompt: 'What move can Snorlax learn that no other Pokémon can in the original games?',
+        type: 'character',
+        prompt: 'Which Pokémon is this?',
+        image: '/images/pokemon/characters/sylveon.jpg',
         difficulty: 'Hard',
         points: 300,
         answers: [
             {
                 id: 'a',
-                text: 'Rest',
+                text: 'Togekiss',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Body Slam',
+                text: 'Gardevoir',
                 isCorrect: false
             },
             {
                 id: 'c',
-                text: 'Belly Drum',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: 'Snore',
-                isCorrect: true
-            }
-        ]
-    },
-    {
-        id: 'pkm-9',
-        gameId: 'pokemon',
-        type: 'character-image',
-        prompt: 'This Ghost/Ground type Pokémon is known as the "Gripper Pokémon". Identify it.',
-        difficulty: 'Hard',
-        points: 300,
-        answers: [
-            {
-                id: 'a',
-                text: 'Gengar',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Golurk',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Marshadow',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: 'Palossand',
-                isCorrect: true
-            }
-        ]
-    },
-    {
-        id: 'pkm-10',
-        gameId: 'pokemon',
-        type: 'trivia',
-        prompt: 'What Pokémon type is NOT very effective against Water types?',
-        difficulty: 'Medium',
-        points: 200,
-        answers: [
-            {
-                id: 'a',
-                text: 'Grass',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Electric',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Fire',
+                text: 'Sylveon',
                 isCorrect: true
             },
             {
                 id: 'd',
-                text: 'Dragon',
+                text: 'Florges',
                 isCorrect: false
             }
         ]
     }
 ];
-const LOL_QUESTIONS = [
+const POKEMON_MAP = [
     {
-        id: 'lol-1',
-        gameId: 'league-of-legends',
-        type: 'trivia',
-        prompt: 'Which champion is known as "The Dark Child" and uses a giant teddy bear named Tibbers?',
+        id: 'pkm-m-1',
+        gameId: 'pokemon',
+        type: 'map',
+        prompt: 'Which Pokémon region is this?',
+        image: '/images/pokemon/regions/kanto.jpg',
         difficulty: 'Easy',
         points: 100,
         answers: [
             {
                 id: 'a',
-                text: 'Lux',
+                text: 'Kanto',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Johto',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Hoenn',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Sinnoh',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-m-2',
+        gameId: 'pokemon',
+        type: 'map',
+        prompt: 'Which Pokémon region is this?',
+        image: '/images/pokemon/regions/johto.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Kanto',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Annie',
+                text: 'Johto',
                 isCorrect: true
             },
             {
                 id: 'c',
+                text: 'Unova',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Kalos',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-m-3',
+        gameId: 'pokemon',
+        type: 'map',
+        prompt: 'Which Pokémon region is this?',
+        image: '/images/pokemon/regions/hoenn.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Sinnoh',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Hoenn',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Galar',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Alola',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-m-4',
+        gameId: 'pokemon',
+        type: 'map',
+        prompt: 'Which Pokémon region is this?',
+        image: '/images/pokemon/regions/sinnoh.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Johto',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Sinnoh',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Hoenn',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Unova',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-m-5',
+        gameId: 'pokemon',
+        type: 'map',
+        prompt: 'Which Pokémon region is this?',
+        image: '/images/pokemon/regions/unova.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Kalos',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Unova',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Galar',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Johto',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-m-6',
+        gameId: 'pokemon',
+        type: 'map',
+        prompt: 'Which Pokémon region is this?',
+        image: '/images/pokemon/regions/kalos.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Alola',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Kalos',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Galar',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Paldea',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-m-7',
+        gameId: 'pokemon',
+        type: 'map',
+        prompt: 'Which Pokémon region is this?',
+        image: '/images/pokemon/regions/alola.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Kalos',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Alola',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Paldea',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Galar',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-m-8',
+        gameId: 'pokemon',
+        type: 'map',
+        prompt: 'Which Pokémon region is this?',
+        image: '/images/pokemon/regions/galar.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Galar',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Paldea',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Alola',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Unova',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-m-9',
+        gameId: 'pokemon',
+        type: 'map',
+        prompt: 'Which Pokémon region is this?',
+        image: '/images/pokemon/regions/paldea.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Galar',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Paldea',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Alola',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Kalos',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'pkm-m-10',
+        gameId: 'pokemon',
+        type: 'map',
+        prompt: 'Which city is this from Pokémon?',
+        image: '/images/pokemon/regions/pallet_town.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Viridian City',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Cerulean City',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Pallet Town',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Lavender Town',
+                isCorrect: false
+            }
+        ]
+    }
+];
+// ─── LEAGUE OF LEGENDS Questions ──────────────────────────────────────────────
+const LOL_CHARACTER = [
+    {
+        id: 'lol-c-1',
+        gameId: 'league-of-legends',
+        type: 'character',
+        prompt: 'Which LoL champion is this?',
+        image: '/images/lol/champions/jinx.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Vi',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Jinx',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Caitlyn',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Miss Fortune',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-c-2',
+        gameId: 'league-of-legends',
+        type: 'character',
+        prompt: 'Which LoL champion is this?',
+        image: '/images/lol/champions/yasuo.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Yone',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Zed',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Yasuo',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Kayn',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-c-3',
+        gameId: 'league-of-legends',
+        type: 'character',
+        prompt: 'Which LoL champion is this?',
+        image: '/images/lol/champions/lux.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
                 text: 'Syndra',
                 isCorrect: false
             },
             {
+                id: 'b',
+                text: 'Seraphine',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Lux',
+                isCorrect: true
+            },
+            {
                 id: 'd',
-                text: 'Lissandra',
+                text: 'Morgana',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'lol-2',
+        id: 'lol-c-4',
         gameId: 'league-of-legends',
-        type: 'trivia',
-        prompt: 'What is the maximum number of items a champion can carry at once in a standard LoL game?',
+        type: 'character',
+        prompt: 'Which LoL champion is this?',
+        image: '/images/lol/champions/thresh.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Blitzcrank',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Thresh',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Nautilus',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Pyke',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-c-5',
+        gameId: 'league-of-legends',
+        type: 'character',
+        prompt: 'Which LoL champion is this?',
+        image: '/images/lol/champions/ahri.jpg',
         difficulty: 'Easy',
         points: 100,
         answers: [
             {
                 id: 'a',
-                text: '5',
+                text: 'Evelynn',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: '7',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: '6',
+                text: 'Ahri',
                 isCorrect: true
             },
             {
+                id: 'c',
+                text: 'LeBlanc',
+                isCorrect: false
+            },
+            {
                 id: 'd',
-                text: '8',
+                text: 'Zoe',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'lol-3',
+        id: 'lol-c-6',
+        gameId: 'league-of-legends',
+        type: 'character',
+        prompt: 'Which LoL champion is this?',
+        image: '/images/lol/champions/teemo.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Rumble',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Kennen',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Teemo',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Tristana',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-c-7',
+        gameId: 'league-of-legends',
+        type: 'character',
+        prompt: 'Which LoL champion is this?',
+        image: '/images/lol/champions/vi.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Jinx',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Vi',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Camille',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Fiora',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-c-8',
+        gameId: 'league-of-legends',
+        type: 'character',
+        prompt: 'Which LoL champion is this?',
+        image: '/images/lol/champions/zed.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Talon',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Akali',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Zed',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Kayn',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-c-9',
+        gameId: 'league-of-legends',
+        type: 'character',
+        prompt: 'Which LoL champion is this?',
+        image: '/images/lol/champions/garen.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Darius',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Jarvan IV',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Garen',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Xin Zhao',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-c-10',
+        gameId: 'league-of-legends',
+        type: 'character',
+        prompt: 'Which LoL champion is this?',
+        image: '/images/lol/champions/ezreal.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Taric',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Ezreal',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Twisted Fate',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Corki',
+                isCorrect: false
+            }
+        ]
+    }
+];
+const LOL_MAP = [
+    {
+        id: 'lol-m-1',
         gameId: 'league-of-legends',
         type: 'map',
-        prompt: 'What is the name of the jungle objective that grants a powerful buff to your entire team when slain?',
-        difficulty: 'Medium',
-        points: 200,
-        answers: [
-            {
-                id: 'a',
-                text: 'Dragon',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Herald',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Baron Nashor',
-                isCorrect: true
-            },
-            {
-                id: 'd',
-                text: 'Voidgrub',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'lol-4',
-        gameId: 'league-of-legends',
-        type: 'character-image',
-        prompt: 'This champion is a blind monk from Ionia who masters cosmic combat. Who is he?',
+        prompt: 'Which LoL map or location is this?',
+        image: '/images/lol/maps/summoners_rift.jpg',
         difficulty: 'Easy',
         points: 100,
         answers: [
             {
                 id: 'a',
-                text: 'Master Yi',
-                isCorrect: false
+                text: "Summoner's Rift",
+                isCorrect: true
             },
             {
                 id: 'b',
-                text: 'Shen',
+                text: 'Howling Abyss',
                 isCorrect: false
             },
             {
                 id: 'c',
-                text: 'Lee Sin',
-                isCorrect: true
+                text: 'Twisted Treeline',
+                isCorrect: false
             },
             {
                 id: 'd',
-                text: 'Karma',
+                text: 'Crystal Scar',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'lol-5',
+        id: 'lol-m-2',
         gameId: 'league-of-legends',
-        type: 'trivia',
-        prompt: 'Which region in the LoL lore is the homeland of the Freljord champions like Ashe?',
+        type: 'map',
+        prompt: 'Which LoL map or location is this?',
+        image: '/images/lol/maps/howling_abyss.jpg',
         difficulty: 'Medium',
         points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Twisted Treeline',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Howling Abyss',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: "Summoner's Rift",
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Teamfight Tactics',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-m-3',
+        gameId: 'league-of-legends',
+        type: 'map',
+        prompt: 'Which LoL region is this?',
+        image: '/images/lol/maps/piltover.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Noxus',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Piltover',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Demacia',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Zaun',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-m-4',
+        gameId: 'league-of-legends',
+        type: 'map',
+        prompt: 'Which LoL region is this?',
+        image: '/images/lol/maps/noxus.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Demacia',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Noxus',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Ionia',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Shurima',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-m-5',
+        gameId: 'league-of-legends',
+        type: 'map',
+        prompt: 'Which LoL region is this?',
+        image: '/images/lol/maps/ionia.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Bilgewater',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Ionia',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Freljord',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Targon',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-m-6',
+        gameId: 'league-of-legends',
+        type: 'map',
+        prompt: 'Which LoL region is this?',
+        image: '/images/lol/maps/freljord.jpg',
+        difficulty: 'Hard',
+        points: 300,
         answers: [
             {
                 id: 'a',
@@ -1069,263 +1999,242 @@ const LOL_QUESTIONS = [
             },
             {
                 id: 'c',
+                text: 'Shurima',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Noxus',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-m-7',
+        gameId: 'league-of-legends',
+        type: 'map',
+        prompt: 'Which LoL region is this?',
+        image: '/images/lol/maps/shurima.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Targon',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Shurima',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Void',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Bilgewater',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-m-8',
+        gameId: 'league-of-legends',
+        type: 'map',
+        prompt: 'Which LoL region is this?',
+        image: '/images/lol/maps/bilgewater.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Shadow Isles',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Bilgewater',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Ionia',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Zaun',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'lol-m-9',
+        gameId: 'league-of-legends',
+        type: 'map',
+        prompt: 'Which LoL region is this?',
+        image: '/images/lol/maps/demacia.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Piltover',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Demacia',
+                isCorrect: true
+            },
+            {
+                id: 'c',
                 text: 'Noxus',
                 isCorrect: false
             },
             {
                 id: 'd',
-                text: 'Piltover',
+                text: 'Ionia',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'lol-6',
+        id: 'lol-m-10',
         gameId: 'league-of-legends',
-        type: 'trivia',
-        prompt: 'What is the passive ability of the champion Garen called?',
-        difficulty: 'Hard',
-        points: 300,
-        answers: [
-            {
-                id: 'a',
-                text: 'Determination',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Courage',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Perseverance',
-                isCorrect: true
-            },
-            {
-                id: 'd',
-                text: 'Valor',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'lol-7',
-        gameId: 'league-of-legends',
-        type: 'trivia',
-        prompt: 'Which LoL champion was the first to be released with the game?',
-        difficulty: 'Hard',
-        points: 300,
-        answers: [
-            {
-                id: 'a',
-                text: 'Ryze',
-                isCorrect: true
-            },
-            {
-                id: 'b',
-                text: 'Ashe',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Nunu',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: 'Annie',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'lol-8',
-        gameId: 'league-of-legends',
-        type: 'trivia',
-        prompt: 'The Netflix animated series based on League of Legends is called what?',
-        difficulty: 'Easy',
-        points: 100,
-        answers: [
-            {
-                id: 'a',
-                text: 'Runaways',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Arcane',
-                isCorrect: true
-            },
-            {
-                id: 'c',
-                text: 'Legends',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: 'Ruination',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'lol-9',
-        gameId: 'league-of-legends',
-        type: 'trivia',
-        prompt: 'Which city-state in the LoL universe is known for science and hextech inventions?',
+        type: 'map',
+        prompt: 'Which LoL location is this?',
+        image: '/images/lol/maps/baron_pit.jpg',
         difficulty: 'Medium',
         points: 200,
         answers: [
             {
                 id: 'a',
-                text: 'Zaun',
+                text: 'Dragon Pit',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Piltover',
+                text: 'Baron Pit',
                 isCorrect: true
             },
             {
                 id: 'c',
-                text: 'Bilgewater',
+                text: 'Blue Buff',
                 isCorrect: false
             },
             {
                 id: 'd',
-                text: 'Shurima',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'lol-10',
-        gameId: 'league-of-legends',
-        type: 'character-image',
-        prompt: 'Which champion is known as "The Undead Juggernaut" and is a massive armored zombie?',
-        difficulty: 'Medium',
-        points: 200,
-        answers: [
-            {
-                id: 'a',
-                text: 'Urgot',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Sion',
-                isCorrect: true
-            },
-            {
-                id: 'c',
-                text: 'Galio',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: 'Malphite',
+                text: 'Red Buff',
                 isCorrect: false
             }
         ]
     }
 ];
-const MLBB_QUESTIONS = [
+// ─── MOBILE LEGENDS Questions ─────────────────────────────────────────────────
+const MLBB_CHARACTER = [
     {
-        id: 'ml-1',
+        id: 'ml-c-1',
         gameId: 'mobile-legends',
-        type: 'trivia',
-        prompt: 'Which Mobile Legends hero is known as the "Demon Hunter" and wields dual pistols?',
+        type: 'character',
+        prompt: 'Which MLBB hero is this?',
+        image: '/images/mlbb/heroes/layla.jpg',
         difficulty: 'Easy',
         points: 100,
         answers: [
             {
                 id: 'a',
-                text: 'Claude',
-                isCorrect: true
-            },
-            {
-                id: 'b',
-                text: 'Brody',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Yi Sun-shin',
-                isCorrect: false
-            },
-            {
-                id: 'd',
                 text: 'Lesley',
                 isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'ml-2',
-        gameId: 'mobile-legends',
-        type: 'trivia',
-        prompt: 'What is the name of the powerful jungle monster that appears in the center of the map?',
-        difficulty: 'Medium',
-        points: 200,
-        answers: [
-            {
-                id: 'a',
-                text: 'Turtle',
-                isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Demon King',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Lord',
+                text: 'Layla',
                 isCorrect: true
             },
             {
-                id: 'd',
-                text: 'Dragon',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'ml-3',
-        gameId: 'mobile-legends',
-        type: 'trivia',
-        prompt: 'Which MLBB hero can transform into three different forms: Ball, Spike, and Drill?',
-        difficulty: 'Hard',
-        points: 300,
-        answers: [
-            {
-                id: 'a',
-                text: 'Terizla',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Aldous',
-                isCorrect: false
-            },
-            {
                 id: 'c',
-                text: 'Gusion',
+                text: 'Miya',
                 isCorrect: false
             },
             {
                 id: 'd',
-                text: 'Gloo',
-                isCorrect: true
+                text: 'Hanabi',
+                isCorrect: false
             }
         ]
     },
     {
-        id: 'ml-4',
+        id: 'ml-c-2',
         gameId: 'mobile-legends',
-        type: 'character-image',
-        prompt: 'This hero is a powerful mage known as the "Conqueror of Ancient Civilizations". Who is she?',
+        type: 'character',
+        prompt: 'Which MLBB hero is this?',
+        image: '/images/mlbb/heroes/alucard.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Zilong',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Alucard',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Roger',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Argus',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-c-3',
+        gameId: 'mobile-legends',
+        type: 'character',
+        prompt: 'Which MLBB hero is this?',
+        image: '/images/mlbb/heroes/tigreal.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Franco',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Tigreal',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Gatotkaca',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Atlas',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-c-4',
+        gameId: 'mobile-legends',
+        type: 'character',
+        prompt: 'Which MLBB hero is this?',
+        image: '/images/mlbb/heroes/kagura.jpg',
         difficulty: 'Medium',
         points: 200,
         answers: [
@@ -1336,214 +2245,596 @@ const MLBB_QUESTIONS = [
             },
             {
                 id: 'b',
-                text: 'Cyclops',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Cecilion',
-                isCorrect: false
-            },
-            {
-                id: 'd',
                 text: 'Kagura',
                 isCorrect: true
-            }
-        ]
-    },
-    {
-        id: 'ml-5',
-        gameId: 'mobile-legends',
-        type: 'trivia',
-        prompt: 'How many players are on each team in a standard Mobile Legends match?',
-        difficulty: 'Easy',
-        points: 100,
-        answers: [
-            {
-                id: 'a',
-                text: '3',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: '4',
-                isCorrect: false
             },
             {
                 id: 'c',
-                text: '5',
-                isCorrect: true
+                text: 'Lylia',
+                isCorrect: false
             },
             {
                 id: 'd',
-                text: '6',
+                text: 'Cecilion',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'ml-6',
+        id: 'ml-c-5',
         gameId: 'mobile-legends',
-        type: 'trivia',
-        prompt: 'Which MLBB hero is a fighter known for his farming mechanics and can split into multiple clones?',
+        type: 'character',
+        prompt: 'Which MLBB hero is this?',
+        image: '/images/mlbb/heroes/fanny.jpg',
         difficulty: 'Hard',
         points: 300,
         answers: [
             {
                 id: 'a',
-                text: 'Wanwan',
+                text: 'Hayabusa',
                 isCorrect: false
             },
             {
                 id: 'b',
+                text: 'Gusion',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Fanny',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Lancelot',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-c-6',
+        gameId: 'mobile-legends',
+        type: 'character',
+        prompt: 'Which MLBB hero is this?',
+        image: '/images/mlbb/heroes/gusion.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
                 text: 'Lancelot',
                 isCorrect: false
             },
             {
+                id: 'b',
+                text: 'Gusion',
+                isCorrect: true
+            },
+            {
                 id: 'c',
-                text: 'Thamuz',
+                text: 'Hayabusa',
                 isCorrect: false
             },
             {
                 id: 'd',
-                text: 'Guinevere',
-                isCorrect: true
+                text: 'Ling',
+                isCorrect: false
             }
         ]
     },
     {
-        id: 'ml-7',
+        id: 'ml-c-7',
         gameId: 'mobile-legends',
-        type: 'trivia',
-        prompt: 'What role does the hero "Tigreal" commonly play in Mobile Legends?',
+        type: 'character',
+        prompt: 'Which MLBB hero is this?',
+        image: '/images/mlbb/heroes/chou.jpg',
         difficulty: 'Easy',
         points: 100,
         answers: [
             {
                 id: 'a',
-                text: 'Marksman',
+                text: 'Paquito',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Tank',
+                text: 'Chou',
                 isCorrect: true
             },
             {
                 id: 'c',
-                text: 'Mage',
+                text: 'Yu Zhong',
                 isCorrect: false
             },
             {
                 id: 'd',
-                text: 'Assassin',
+                text: 'Khaleed',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'ml-8',
+        id: 'ml-c-8',
         gameId: 'mobile-legends',
-        type: 'trivia',
-        prompt: 'Which terrain feature in MLBB provides vision control and is contested early game?',
+        type: 'character',
+        prompt: 'Which MLBB hero is this?',
+        image: '/images/mlbb/heroes/wanwan.jpg',
         difficulty: 'Medium',
         points: 200,
         answers: [
             {
                 id: 'a',
-                text: 'River',
+                text: 'Hanabi',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Bush',
-                isCorrect: false
+                text: 'Wanwan',
+                isCorrect: true
             },
             {
                 id: 'c',
-                text: 'Turtle Pit',
+                text: 'Kimmy',
                 isCorrect: false
             },
             {
                 id: 'd',
-                text: 'Blue or Red Buff camps',
-                isCorrect: true
+                text: 'Beatrix',
+                isCorrect: false
             }
         ]
     },
     {
-        id: 'ml-9',
+        id: 'ml-c-9',
         gameId: 'mobile-legends',
-        type: 'trivia',
-        prompt: 'Which season introduced the revamped Roaming system in Mobile Legends?',
+        type: 'character',
+        prompt: 'Which MLBB hero is this?',
+        image: '/images/mlbb/heroes/ling.jpg',
         difficulty: 'Hard',
         points: 300,
         answers: [
             {
                 id: 'a',
-                text: 'Season 15',
+                text: 'Hayabusa',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Season 18',
+                text: 'Fanny',
                 isCorrect: false
             },
             {
                 id: 'c',
-                text: 'Season 12',
+                text: 'Ling',
                 isCorrect: true
             },
             {
                 id: 'd',
-                text: 'Season 20',
+                text: 'Lancelot',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'ml-10',
+        id: 'ml-c-10',
         gameId: 'mobile-legends',
-        type: 'character-image',
-        prompt: 'A tank hero known as "The Sea Halberd", this hero throws a magical lance and can freeze enemies. Who is it?',
-        difficulty: 'Medium',
-        points: 200,
+        type: 'character',
+        prompt: 'Which MLBB hero is this?',
+        image: '/images/mlbb/heroes/grock.jpg',
+        difficulty: 'Hard',
+        points: 300,
         answers: [
             {
                 id: 'a',
-                text: 'Baxia',
+                text: 'Uranus',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Atlas',
+                text: 'Baxia',
                 isCorrect: false
             },
             {
                 id: 'c',
-                text: 'Barats',
-                isCorrect: false
+                text: 'Grock',
+                isCorrect: true
             },
             {
                 id: 'd',
-                text: 'Khufra',
-                isCorrect: true
+                text: 'Belerick',
+                isCorrect: false
             }
         ]
     }
 ];
-const TEKKEN_QUESTIONS = [
+const MLBB_MAP = [
     {
-        id: 'tk-1',
-        gameId: 'tekken',
-        type: 'trivia',
-        prompt: 'Who is the main antagonist and father of the protagonist in the Tekken series?',
+        id: 'ml-m-1',
+        gameId: 'mobile-legends',
+        type: 'map',
+        prompt: 'Which MLBB battlefield is this?',
+        image: '/images/mlbb/maps/land_of_dawn.jpg',
         difficulty: 'Easy',
         points: 100,
         answers: [
             {
                 id: 'a',
+                text: 'Land of Dawn',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Lost Jungle',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Enchanted Forest',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Canyon of Veil',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-m-2',
+        gameId: 'mobile-legends',
+        type: 'map',
+        prompt: 'Which MLBB jungle area is this?',
+        image: '/images/mlbb/maps/turtle_pit.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Lord Pit',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Turtle Pit',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Blue Buff',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Red Buff',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-m-3',
+        gameId: 'mobile-legends',
+        type: 'map',
+        prompt: 'Which MLBB jungle area is this?',
+        image: '/images/mlbb/maps/lord_pit.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Turtle Pit',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Lord Pit',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Crab Spot',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Base Turret',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-m-4',
+        gameId: 'mobile-legends',
+        type: 'map',
+        prompt: 'Which MLBB map view is this?',
+        image: '/images/mlbb/maps/minimap.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Classic Map',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Brawl Map',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Mayhem Map',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Ranked Map',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-m-5',
+        gameId: 'mobile-legends',
+        type: 'map',
+        prompt: 'Which MLBB game mode map is this?',
+        image: '/images/mlbb/maps/brawl_map.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Survival Map',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Brawl Map',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Classic Map',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Mayhem Map',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-m-6',
+        gameId: 'mobile-legends',
+        type: 'map',
+        prompt: 'Which MLBB lane is this area?',
+        image: '/images/mlbb/maps/top_lane.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Gold Lane',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Exp Lane',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Mid Lane',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Jungle',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-m-7',
+        gameId: 'mobile-legends',
+        type: 'map',
+        prompt: 'Which MLBB lane is this area?',
+        image: '/images/mlbb/maps/bot_lane.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Exp Lane',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Gold Lane',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Mid Lane',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Roaming',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-m-8',
+        gameId: 'mobile-legends',
+        type: 'map',
+        prompt: 'Which MLBB location is this?',
+        image: '/images/mlbb/maps/blue_buff.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Red Buff',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Blue Buff',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Lithowanderer',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Luminous Lord',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-m-9',
+        gameId: 'mobile-legends',
+        type: 'map',
+        prompt: 'Which MLBB location is this?',
+        image: '/images/mlbb/maps/red_buff.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Blue Buff',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Red Buff',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Crab',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Lithowanderer',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'ml-m-10',
+        gameId: 'mobile-legends',
+        type: 'map',
+        prompt: 'Which MLBB base structure is this?',
+        image: '/images/mlbb/maps/base_crystal.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Turret',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Base Crystal',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Inhibitor',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Nexus',
+                isCorrect: false
+            }
+        ]
+    }
+];
+// ─── TEKKEN Questions ──────────────────────────────────────────────────────────
+const TEKKEN_CHARACTER = [
+    {
+        id: 'tk-c-1',
+        gameId: 'tekken',
+        type: 'character',
+        prompt: 'Which Tekken fighter is this?',
+        image: '/images/tekken/fighters/jin.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Kazuya',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Jin Kazama',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Heihachi',
+                isCorrect: false
+            },
+            {
+                id: 'd',
                 text: 'Lee Chaolan',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-c-2',
+        gameId: 'tekken',
+        type: 'character',
+        prompt: 'Which Tekken fighter is this?',
+        image: '/images/tekken/fighters/kazuya.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Jin Kazama',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Kazuya Mishima',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Heihachi',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Devil Jin',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-c-3',
+        gameId: 'tekken',
+        type: 'character',
+        prompt: 'Which Tekken fighter is this?',
+        image: '/images/tekken/fighters/heihachi.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Kazuya',
                 isCorrect: false
             },
             {
@@ -1553,535 +2844,567 @@ const TEKKEN_QUESTIONS = [
             },
             {
                 id: 'c',
-                text: 'Kazuya Mishima',
+                text: 'Jin',
                 isCorrect: false
             },
             {
                 id: 'd',
-                text: 'Jin Kazama',
+                text: 'Lars',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'tk-2',
+        id: 'tk-c-4',
         gameId: 'tekken',
-        type: 'trivia',
-        prompt: 'What is the name of the fighting style used by Jin Kazama in Tekken 3?',
+        type: 'character',
+        prompt: 'Which Tekken fighter is this?',
+        image: '/images/tekken/fighters/nina.jpg',
         difficulty: 'Medium',
         points: 200,
         answers: [
             {
                 id: 'a',
-                text: 'Karate',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Mishima Style',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Kazama Style Traditional Martial Arts',
-                isCorrect: true
-            },
-            {
-                id: 'd',
-                text: 'Dragon Fist',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'tk-3',
-        gameId: 'tekken',
-        type: 'trivia',
-        prompt: 'What supernatural force runs through the Mishima bloodline in Tekken?',
-        difficulty: 'Easy',
-        points: 100,
-        answers: [
-            {
-                id: 'a',
-                text: 'The Ogre Gene',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Devil Gene',
-                isCorrect: true
-            },
-            {
-                id: 'c',
-                text: 'Omega Force',
-                isCorrect: false
-            },
-            {
-                id: 'd',
-                text: 'Dark Hado',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'tk-4',
-        gameId: 'tekken',
-        type: 'character-image',
-        prompt: 'This female ninja character in Tekken is known for her agility and works for G Corporation. Who is she?',
-        difficulty: 'Medium',
-        points: 200,
-        answers: [
-            {
-                id: 'a',
-                text: 'Zafina',
+                text: 'Anna Williams',
                 isCorrect: false
             },
             {
                 id: 'b',
                 text: 'Nina Williams',
-                isCorrect: false
+                isCorrect: true
             },
             {
                 id: 'c',
-                text: 'Anna Williams',
+                text: 'Zafina',
                 isCorrect: false
             },
             {
                 id: 'd',
-                text: 'Kazumi Mishima',
-                isCorrect: true
+                text: 'Kazumi',
+                isCorrect: false
             }
         ]
     },
     {
-        id: 'tk-5',
+        id: 'tk-c-5',
         gameId: 'tekken',
-        type: 'trivia',
-        prompt: 'What is the name of the Mishima corporation that frequently appears in the Tekken storyline?',
+        type: 'character',
+        prompt: 'Which Tekken fighter is this?',
+        image: '/images/tekken/fighters/paul.jpg',
         difficulty: 'Easy',
         points: 100,
         answers: [
             {
                 id: 'a',
-                text: 'Zaibatsu Corp',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'G Corporation',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Mishima Zaibatsu',
-                isCorrect: true
-            },
-            {
-                id: 'd',
-                text: 'Iron Fist Group',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'tk-6',
-        gameId: 'tekken',
-        type: 'trivia',
-        prompt: 'Which Tekken game introduced the popular character Hwoarang?',
-        difficulty: 'Medium',
-        points: 200,
-        answers: [
-            {
-                id: 'a',
-                text: 'Tekken 2',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Tekken 4',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Tekken 3',
-                isCorrect: true
-            },
-            {
-                id: 'd',
-                text: 'Tekken 5',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'tk-7',
-        gameId: 'tekken',
-        type: 'trivia',
-        prompt: 'Who won the "King of Iron Fist Tournament" in the original Tekken?',
-        difficulty: 'Hard',
-        points: 300,
-        answers: [
-            {
-                id: 'a',
-                text: 'Heihachi Mishima',
+                text: 'Marshall Law',
                 isCorrect: false
             },
             {
                 id: 'b',
                 text: 'Paul Phoenix',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Kazuya Mishima',
                 isCorrect: true
             },
             {
+                id: 'c',
+                text: 'Bryan Fury',
+                isCorrect: false
+            },
+            {
                 id: 'd',
-                text: 'King',
+                text: 'Bob',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'tk-8',
+        id: 'tk-c-6',
         gameId: 'tekken',
-        type: 'trivia',
-        prompt: 'Which Tekken character is a bear that wears boxing gloves?',
-        difficulty: 'Easy',
-        points: 100,
-        answers: [
-            {
-                id: 'a',
-                text: 'Panda',
-                isCorrect: false
-            },
-            {
-                id: 'b',
-                text: 'Roger Jr.',
-                isCorrect: false
-            },
-            {
-                id: 'c',
-                text: 'Kuma',
-                isCorrect: true
-            },
-            {
-                id: 'd',
-                text: 'Alex',
-                isCorrect: false
-            }
-        ]
-    },
-    {
-        id: 'tk-9',
-        gameId: 'tekken',
-        type: 'trivia',
-        prompt: "What is the name of Eddy Gordo's fighting style in Tekken?",
+        type: 'character',
+        prompt: 'Which Tekken fighter is this?',
+        image: '/images/tekken/fighters/king.jpg',
         difficulty: 'Medium',
         points: 200,
         answers: [
             {
                 id: 'a',
-                text: 'Samba',
+                text: 'Armor King',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Capoeira',
+                text: 'King',
                 isCorrect: true
             },
             {
                 id: 'c',
-                text: 'Muay Thai',
+                text: 'Marduk',
                 isCorrect: false
             },
             {
                 id: 'd',
-                text: 'Jiu-Jitsu',
+                text: 'Jack-8',
                 isCorrect: false
             }
         ]
     },
     {
-        id: 'tk-10',
+        id: 'tk-c-7',
         gameId: 'tekken',
-        type: 'character-image',
-        prompt: 'Which cyborg character was introduced in Tekken 5 as a female fighter with robotic limbs?',
+        type: 'character',
+        prompt: 'Which Tekken fighter is this?',
+        image: '/images/tekken/fighters/eddy.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Hwoarang',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Eddy Gordo',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Christie',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Lei Wulong',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-c-8',
+        gameId: 'tekken',
+        type: 'character',
+        prompt: 'Which Tekken fighter is this?',
+        image: '/images/tekken/fighters/hwoarang.jpg',
         difficulty: 'Hard',
         points: 300,
         answers: [
             {
                 id: 'a',
-                text: 'Jack-7',
+                text: 'Baek Doo San',
                 isCorrect: false
             },
             {
                 id: 'b',
-                text: 'Bryan Fury',
-                isCorrect: false
+                text: 'Hwoarang',
+                isCorrect: true
             },
             {
                 id: 'c',
-                text: 'Nina Williams',
+                text: 'Eddy Gordo',
                 isCorrect: false
             },
             {
                 id: 'd',
+                text: 'Jin',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-c-9',
+        gameId: 'tekken',
+        type: 'character',
+        prompt: 'Which Tekken fighter is this?',
+        image: '/images/tekken/fighters/yoshimitsu.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Kunimitsu',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Yoshimitsu',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Raven',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Shaheen',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-c-10',
+        gameId: 'tekken',
+        type: 'character',
+        prompt: 'Which Tekken fighter is this?',
+        image: '/images/tekken/fighters/alisa.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Jack-8',
+                isCorrect: false
+            },
+            {
+                id: 'b',
                 text: 'Alisa Bosconovitch',
                 isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Lili',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Zafina',
+                isCorrect: false
+            }
+        ]
+    }
+];
+const TEKKEN_MAP = [
+    {
+        id: 'tk-m-1',
+        gameId: 'tekken',
+        type: 'map',
+        prompt: 'Which Tekken stage is this?',
+        image: '/images/tekken/stages/mishima_dojo.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'Mishima Dojo',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Forgotten Realm',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Jungle Outpost',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Precipice of Fate',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-m-2',
+        gameId: 'tekken',
+        type: 'map',
+        prompt: 'Which Tekken stage is this?',
+        image: '/images/tekken/stages/forgotten_realm.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Arctic Snowfall',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Forgotten Realm',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Mishima Dojo',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Twilight Conflict',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-m-3',
+        gameId: 'tekken',
+        type: 'map',
+        prompt: 'Which Tekken stage is this?',
+        image: '/images/tekken/stages/polar_paradise.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Forgotten Realm',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Polar Paradox',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Arctic Snowfall',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Cave of Enlightenment',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-m-4',
+        gameId: 'tekken',
+        type: 'map',
+        prompt: 'Which Tekken stage is this?',
+        image: '/images/tekken/stages/ling_dojo.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Mishima Dojo',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Ling Xiaoyu\'s Stage',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Jungle Outpost',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Twilight Conflict',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-m-5',
+        gameId: 'tekken',
+        type: 'map',
+        prompt: 'Which Tekken stage is this?',
+        image: '/images/tekken/stages/dynamic_weather.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Precipice of Fate',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Urban Warzone',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Twilight Conflict',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Forgotten Realm',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-m-6',
+        gameId: 'tekken',
+        type: 'map',
+        prompt: 'Which Tekken stage is this?',
+        image: '/images/tekken/stages/jungle.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Jungle Outpost',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Cave of Enlightenment',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Forgotten Realm',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Precipice of Fate',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-m-7',
+        gameId: 'tekken',
+        type: 'map',
+        prompt: 'Which Tekken stage is this?',
+        image: '/images/tekken/stages/urban.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Mishima Dojo',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Urban Warzone',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Jungle Outpost',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Forgotten Realm',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-m-8',
+        gameId: 'tekken',
+        type: 'map',
+        prompt: 'Which Tekken stage is this?',
+        image: '/images/tekken/stages/cave.jpg',
+        difficulty: 'Hard',
+        points: 300,
+        answers: [
+            {
+                id: 'a',
+                text: 'Jungle Outpost',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Cave of Enlightenment',
+                isCorrect: true
+            },
+            {
+                id: 'c',
+                text: 'Forgotten Realm',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Mishima Dojo',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-m-9',
+        gameId: 'tekken',
+        type: 'map',
+        prompt: 'Which Tekken stage is this?',
+        image: '/images/tekken/stages/precipice.jpg',
+        difficulty: 'Medium',
+        points: 200,
+        answers: [
+            {
+                id: 'a',
+                text: 'Precipice of Fate',
+                isCorrect: true
+            },
+            {
+                id: 'b',
+                text: 'Arctic Snowfall',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'Mishima Dojo',
+                isCorrect: false
+            },
+            {
+                id: 'd',
+                text: 'Cave of Enlightenment',
+                isCorrect: false
+            }
+        ]
+    },
+    {
+        id: 'tk-m-10',
+        gameId: 'tekken',
+        type: 'map',
+        prompt: 'Which Tekken stage is this?',
+        image: '/images/tekken/stages/arena.jpg',
+        difficulty: 'Easy',
+        points: 100,
+        answers: [
+            {
+                id: 'a',
+                text: 'G Corp Helipad',
+                isCorrect: false
+            },
+            {
+                id: 'b',
+                text: 'Howard Estate',
+                isCorrect: false
+            },
+            {
+                id: 'c',
+                text: 'The Arena',
+                isCorrect: true
+            },
+            {
+                id: 'd',
+                text: 'Mishima Dojo',
+                isCorrect: false
             }
         ]
     }
 ];
 const ALL_QUESTIONS = {
-    valorant: VALORANT_QUESTIONS,
-    pokemon: POKEMON_QUESTIONS,
-    'league-of-legends': LOL_QUESTIONS,
-    'mobile-legends': MLBB_QUESTIONS,
-    tekken: TEKKEN_QUESTIONS
-};
-const MOCK_LEADERBOARD = [
-    {
-        rank: 1,
-        username: 'ProGamer_X',
-        score: 12500,
-        accuracy: 98,
-        streak: 25,
-        gameId: 'valorant',
-        modeId: 'mixed-quiz',
-        date: '2026-06-29',
-        badge: '👑'
+    valorant: {
+        character: VALORANT_CHARACTER,
+        map: VALORANT_MAP
     },
-    {
-        rank: 2,
-        username: 'ShadowStriker',
-        score: 11200,
-        accuracy: 95,
-        streak: 20,
-        gameId: 'valorant',
-        modeId: 'voice-line',
-        date: '2026-06-29',
-        badge: '🥈'
+    pokemon: {
+        character: POKEMON_CHARACTER,
+        map: POKEMON_MAP
     },
-    {
-        rank: 3,
-        username: 'NeonSage',
-        score: 10800,
-        accuracy: 93,
-        streak: 18,
-        gameId: 'pokemon',
-        modeId: 'character-guess',
-        date: '2026-06-28',
-        badge: '🥉'
+    'league-of-legends': {
+        character: LOL_CHARACTER,
+        map: LOL_MAP
     },
-    {
-        rank: 4,
-        username: 'VoidWalker',
-        score: 9500,
-        accuracy: 91,
-        streak: 15,
-        gameId: 'league-of-legends',
-        modeId: 'mixed-quiz',
-        date: '2026-06-28'
+    'mobile-legends': {
+        character: MLBB_CHARACTER,
+        map: MLBB_MAP
     },
-    {
-        rank: 5,
-        username: 'IronFistKing',
-        score: 8900,
-        accuracy: 89,
-        streak: 14,
-        gameId: 'tekken',
-        modeId: 'character-guess',
-        date: '2026-06-27'
-    },
-    {
-        rank: 6,
-        username: 'FireStorm99',
-        score: 8200,
-        accuracy: 87,
-        streak: 12,
-        gameId: 'mobile-legends',
-        modeId: 'mixed-quiz',
-        date: '2026-06-27'
-    },
-    {
-        rank: 7,
-        username: 'CrypticFox',
-        score: 7800,
-        accuracy: 85,
-        streak: 11,
-        gameId: 'valorant',
-        modeId: 'map-region',
-        date: '2026-06-26'
-    },
-    {
-        rank: 8,
-        username: 'ArcaneWizard',
-        score: 7200,
-        accuracy: 84,
-        streak: 10,
-        gameId: 'league-of-legends',
-        modeId: 'voice-line',
-        date: '2026-06-26'
-    },
-    {
-        rank: 9,
-        username: 'GuestPlayer',
-        score: 6500,
-        accuracy: 82,
-        streak: 9,
-        gameId: 'pokemon',
-        modeId: 'mixed-quiz',
-        date: '2026-06-25',
-        isCurrentUser: true
-    },
-    {
-        rank: 10,
-        username: 'StarFighter',
-        score: 6100,
-        accuracy: 80,
-        streak: 8,
-        gameId: 'tekken',
-        modeId: 'mixed-quiz',
-        date: '2026-06-25'
-    },
-    {
-        rank: 11,
-        username: 'ThunderBolt',
-        score: 5800,
-        accuracy: 78,
-        streak: 7,
-        gameId: 'mobile-legends',
-        modeId: 'character-guess',
-        date: '2026-06-24'
-    },
-    {
-        rank: 12,
-        username: 'NightOwl',
-        score: 5200,
-        accuracy: 76,
-        streak: 6,
-        gameId: 'valorant',
-        modeId: 'character-guess',
-        date: '2026-06-24'
+    tekken: {
+        character: TEKKEN_CHARACTER,
+        map: TEKKEN_MAP
     }
-];
-const MOCK_ACHIEVEMENTS = [
-    {
-        id: 'first-win',
-        name: 'First Blood',
-        description: 'Complete your first quiz session.',
-        icon: '🎯',
-        isUnlocked: true,
-        unlockedAt: '2026-06-01',
-        rarity: 'Common'
-    },
-    {
-        id: 'streak-5',
-        name: 'On Fire',
-        description: 'Achieve a 5x answer streak.',
-        icon: '🔥',
-        isUnlocked: true,
-        unlockedAt: '2026-06-05',
-        rarity: 'Common'
-    },
-    {
-        id: 'perfect-score',
-        name: 'Flawless Victory',
-        description: 'Score 100% accuracy in any quiz.',
-        icon: '💎',
-        isUnlocked: false,
-        rarity: 'Legendary'
-    },
-    {
-        id: 'all-games',
-        name: 'Omniplayer',
-        description: 'Play a quiz for all 5 games.',
-        icon: '🌟',
-        isUnlocked: true,
-        unlockedAt: '2026-06-10',
-        rarity: 'Rare'
-    },
-    {
-        id: 'streak-20',
-        name: 'Unstoppable',
-        description: 'Achieve a 20x answer streak.',
-        icon: '⚡',
-        isUnlocked: false,
-        rarity: 'Epic'
-    },
-    {
-        id: 'daily-7',
-        name: 'Weekly Warrior',
-        description: 'Complete the Daily Challenge 7 days in a row.',
-        icon: '📅',
-        isUnlocked: false,
-        rarity: 'Rare'
-    },
-    {
-        id: 'high-score',
-        name: 'Top Scorer',
-        description: 'Reach 10,000 points in a single session.',
-        icon: '🏆',
-        isUnlocked: false,
-        rarity: 'Epic'
-    },
-    {
-        id: 'endless-50',
-        name: 'Endless Runner',
-        description: 'Answer 50 questions in Endless Mode.',
-        icon: '♾️',
-        isUnlocked: false,
-        rarity: 'Legendary'
-    }
-];
-const MOCK_USER_PROFILE = {
-    username: 'GuestPlayer',
-    avatar: '🎮',
-    level: 12,
-    xp: 2840,
-    xpToNextLevel: 3000,
-    totalGamesPlayed: 47,
-    totalScore: 34200,
-    highScore: 6500,
-    accuracy: 79,
-    maxStreak: 12,
-    achievements: MOCK_ACHIEVEMENTS,
-    favoriteGame: 'valorant',
-    joinDate: '2026-04-15',
-    gamesStats: [
-        {
-            gameId: 'valorant',
-            gamesPlayed: 20,
-            highScore: 6500,
-            accuracy: 82
-        },
-        {
-            gameId: 'pokemon',
-            gamesPlayed: 12,
-            highScore: 4800,
-            accuracy: 78
-        },
-        {
-            gameId: 'league-of-legends',
-            gamesPlayed: 8,
-            highScore: 3900,
-            accuracy: 75
-        },
-        {
-            gameId: 'mobile-legends',
-            gamesPlayed: 5,
-            highScore: 2800,
-            accuracy: 71
-        },
-        {
-            gameId: 'tekken',
-            gamesPlayed: 2,
-            highScore: 1800,
-            accuracy: 65
-        }
-    ]
 };
 }),
 "[project]/src/components/GameCard.tsx [ssr] (ecmascript)", ((__turbopack_context__) => {

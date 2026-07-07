@@ -1,120 +1,81 @@
 'use client';
 import React, { useState } from 'react';
-import { GAMES, QUIZ_MODES } from '../data/mockData';
-import { GameId, ModeId } from '../types';
-import ModeCard from '../components/ModeCard';
-import { getPersonalBest, formatScore } from '../utils';
+import { GAMES } from '../data/mockData';
+import { GameId } from '../types';
+import GameCard from '../components/GameCard';
 
-type Page = 'home' | 'games' | 'quiz-mode' | 'quiz' | 'results' | 'leaderboard' | 'profile';
+type Page = 'home' | 'games' | 'quiz-mode' | 'quiz' | 'results' | 'leaderboard';
 
-interface QuizModePageProps {
-  selectedGameId: GameId | null;
+interface GameSelectionPageProps {
   onNavigate: (page: Page) => void;
-  onSelectMode: (modeId: ModeId) => void;
+  onSelectGame: (id: GameId) => void;
 }
 
-export default function QuizModeSelectionPage({ selectedGameId, onNavigate, onSelectMode }: QuizModePageProps) {
-  const [selectedMode, setSelectedMode] = useState<ModeId | null>(null);
-
-  const game = GAMES.find((g) => g.id === selectedGameId);
+export default function GameSelectionPage({ onNavigate, onSelectGame }: GameSelectionPageProps) {
+  const [selected, setSelected] = useState<GameId | null>(null);
 
   const handleContinue = () => {
-    if (!selectedMode) return;
-    onSelectMode(selectedMode);
-    onNavigate('quiz');
+    if (!selected) return;
+    onSelectGame(selected);
+    onNavigate('quiz-mode');
   };
 
-  const mode = QUIZ_MODES.find((m) => m.id === selectedMode);
-  const pb = selectedGameId && selectedMode ? getPersonalBest(selectedGameId, selectedMode) : null;
+  const game = GAMES.find(g => g.id === selected);
 
   return (
-    <main className="pt-24 px-4 md:px-12 max-w-[1440px] mx-auto pb-24 md:pb-16">
-      {/* Header */}
-      <div className="mb-10 mt-4">
-        <button
-          onClick={() => onNavigate('games')}
-          className="flex items-center gap-1 text-on-surface-variant hover:text-primary text-label-sm font-mono uppercase tracking-wide transition-colors mb-6"
-        >
-          <span className="material-symbols-outlined text-sm">arrow_back</span>
-          Back to Game Selection
+    <main className="pt-20 pb-24 md:pb-8 px-4 md:px-12 max-w-5xl mx-auto min-h-screen">
+      <div className="mt-8 mb-8">
+        <button onClick={() => onNavigate('home')} className="flex items-center gap-1 text-on-surface-variant hover:text-primary text-xs font-mono uppercase tracking-wide transition-colors mb-6">
+          <span className="material-symbols-outlined text-sm">arrow_back</span>Back
         </button>
-
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant/30 text-on-surface-variant text-label-sm font-mono uppercase tracking-widest mb-3">
-          Step 2 of 2
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant/30 text-on-surface-variant text-xs font-mono uppercase tracking-widest mb-3">
+          Step 1 of 2
         </div>
-
-        <div className="flex items-center gap-4 mb-3">
-          {game && <span className="text-4xl select-none">{game.emoji}</span>}
-          <div>
-            <h1 className="text-display-sm font-display font-black text-on-surface">
-              Select Quiz Mode
-            </h1>
-            {game && (
-              <p className="text-body-md font-body text-on-surface-variant">
-                Playing: <span className="text-primary font-semibold">{game.name}</span>
-              </p>
-            )}
-          </div>
-        </div>
+        <h1 className="text-4xl font-heading font-black text-on-surface mb-1">Select Your Game</h1>
+        <p className="text-on-surface-variant font-body">Choose the game universe you want to be tested on.</p>
       </div>
 
-      {/* Modes grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        {QUIZ_MODES.map((m) => (
-          <ModeCard
-            key={m.id}
-            mode={m}
-            onClick={() => setSelectedMode(m.id)}
-            selected={selectedMode === m.id}
+      {/* Game grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+        {GAMES.map(game => (
+          <GameCard
+            key={game.id}
+            game={game}
+            onClick={() => setSelected(game.id)}
+            selected={selected === game.id}
           />
         ))}
       </div>
 
-      {/* Selected mode details & CTA */}
-      {mode ? (
-        <div className="glass-panel rounded-xl p-6 border border-primary/20 animate-fade-in">
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>
-                    {mode.icon}
-                  </span>
-                </div>
-                <h2 className="text-headline-md font-heading text-on-surface">{mode.name}</h2>
-              </div>
-              <p className="text-body-md font-body text-on-surface-variant mb-3">{mode.description}</p>
-              <div className="flex items-center gap-4 flex-wrap">
-                <div className="flex items-center gap-1 text-label-sm font-mono text-outline">
-                  <span className="material-symbols-outlined text-xs">timer</span>
-                  {mode.timeLimit}s per question
-                </div>
-                <div className="flex items-center gap-1 text-label-sm font-mono text-outline">
-                  <span className="material-symbols-outlined text-xs">quiz</span>
-                  {mode.questionCount === 999 ? 'Unlimited' : `${mode.questionCount} questions`}
-                </div>
-                {pb && (
-                  <div className="flex items-center gap-1 text-label-sm font-mono text-tertiary">
-                    <span className="material-symbols-outlined text-xs">emoji_events</span>
-                    PB: {formatScore(pb.score)}
-                  </div>
-                )}
-              </div>
+      {/* Continue panel */}
+      {game ? (
+        <div
+          className="rounded-xl p-6 border flex flex-col sm:flex-row items-start sm:items-center gap-6 animate-fade-in"
+          style={{ background: `${game.accentColor}10`, borderColor: `${game.accentColor}40` }}
+        >
+          <div className="flex items-center gap-4 flex-1">
+            <span className="text-5xl select-none">{game.emoji}</span>
+            <div>
+              <h2 className="font-heading font-bold text-xl text-on-surface">{game.name}</h2>
+              <p className="text-on-surface-variant text-sm font-body">{game.description}</p>
             </div>
-            <button
-              onClick={handleContinue}
-              className="flex-shrink-0 flex items-center gap-2 bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-mono text-label-lg px-10 py-4 rounded-lg uppercase tracking-widest hover:-skew-x-1 hover:scale-105 transition-all"
-              style={{ boxShadow: '0 0 20px rgba(210,187,255,0.3)' }}
-            >
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
-              Start Quiz
-            </button>
           </div>
+          <button
+            onClick={handleContinue}
+            className="flex-shrink-0 flex items-center gap-2 px-8 py-3 rounded-lg font-mono font-bold text-sm uppercase tracking-widest text-on-primary-container transition-all hover:scale-105"
+            style={{
+              background: `linear-gradient(135deg, #7c3aed, ${game.accentColor})`,
+              boxShadow: `0 0 20px ${game.accentColor}40`,
+            }}
+          >
+            Continue
+            <span className="material-symbols-outlined text-base">arrow_forward</span>
+          </button>
         </div>
       ) : (
-        <div className="glass-panel rounded-xl p-8 text-center border border-outline-variant/20">
-          <span className="material-symbols-outlined text-4xl text-outline mb-3 block">touch_app</span>
-          <p className="text-body-md font-body text-on-surface-variant">Select a mode above to begin</p>
+        <div className="rounded-xl p-8 text-center border border-outline-variant/20 bg-surface-container">
+          <span className="material-symbols-outlined text-4xl text-outline block mb-2">touch_app</span>
+          <p className="text-on-surface-variant font-body">Select a game above to continue</p>
         </div>
       )}
     </main>
