@@ -16,19 +16,13 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
 
       <div className="relative z-10 flex flex-col items-center text-center gap-8 max-w-3xl">
 
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-high border border-primary/20 text-primary text-xs font-mono tracking-widest uppercase">
-          <span className="w-2 h-2 rounded-full bg-secondary-fixed animate-pulse" />
-          Booth Edition · Season 4
-        </div>
-
         {/* Title */}
         <div className="flex flex-col gap-2">
           <h1 className="text-6xl md:text-8xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-br from-primary via-secondary-fixed to-tertiary uppercase leading-none tracking-tight">
-            GameGuess
+            Ewan 
           </h1>
           <h2 className="text-6xl md:text-8xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-br from-primary via-secondary-fixed to-tertiary uppercase leading-none tracking-tight">
-            Arena
+            ko
           </h2>
         </div>
 
@@ -36,15 +30,6 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
         <p className="text-on-surface-variant font-body text-lg max-w-xl">
           Identify characters, maps, and stages from your favorite games. How well do you know them?
         </p>
-
-        {/* Game emojis */}
-        <div className="flex items-center gap-4 text-4xl select-none">
-          {['🎯', '⚔️', '⚡', '🏆', '👊'].map((e, i) => (
-            <span key={i} className="opacity-70 hover:opacity-100 hover:scale-125 transition-all duration-300 cursor-default">
-              {e}
-            </span>
-          ))}
-        </div>
 
         {/* CTA buttons */}
         <div className="flex flex-col sm:flex-row gap-4 items-center">

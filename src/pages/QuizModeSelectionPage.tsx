@@ -1,81 +1,143 @@
 'use client';
 import React, { useState } from 'react';
-import { GAMES } from '../data/mockData';
-import { GameId } from '../types';
-import GameCard from '../components/GameCard';
+import { GAMES, QUIZ_MODES, ALL_QUESTIONS } from '../data/mockData';
+import { GameId, ModeId } from '../types';
 
 type Page = 'home' | 'games' | 'quiz-mode' | 'quiz' | 'results' | 'leaderboard';
 
-interface GameSelectionPageProps {
+interface QuizModePageProps {
+  selectedGameId: GameId | null;
   onNavigate: (page: Page) => void;
-  onSelectGame: (id: GameId) => void;
+  onSelectMode: (id: ModeId) => void;
 }
 
-export default function GameSelectionPage({ onNavigate, onSelectGame }: GameSelectionPageProps) {
-  const [selected, setSelected] = useState<GameId | null>(null);
+// Games that have map/stage questions
+const GAMES_WITH_MAPS: GameId[] = ['valorant', 'tekken'];
 
-  const handleContinue = () => {
+export default function QuizModeSelectionPage({ selectedGameId, onNavigate, onSelectMode }: QuizModePageProps) {
+  const [selected, setSelected] = useState<ModeId | null>(null);
+  const game = GAMES.find(g => g.id === selectedGameId);
+
+  const hasMapMode = selectedGameId ? GAMES_WITH_MAPS.includes(selectedGameId) : false;
+
+  // Only show modes that have questions for this game
+  const availableModes = QUIZ_MODES.filter(m => {
+    if (m.id === 'map-region') return hasMapMode;
+    return true;
+  });
+
+  const handleStart = () => {
     if (!selected) return;
-    onSelectGame(selected);
-    onNavigate('quiz-mode');
+    onSelectMode(selected);
+    onNavigate('quiz');
   };
 
-  const game = GAMES.find(g => g.id === selected);
-
   return (
-    <main className="pt-20 pb-24 md:pb-8 px-4 md:px-12 max-w-5xl mx-auto min-h-screen">
+    <main className="pt-20 pb-24 md:pb-8 px-4 md:px-12 max-w-4xl mx-auto min-h-screen">
       <div className="mt-8 mb-8">
-        <button onClick={() => onNavigate('home')} className="flex items-center gap-1 text-on-surface-variant hover:text-primary text-xs font-mono uppercase tracking-wide transition-colors mb-6">
+        <button
+          onClick={() => onNavigate('games')}
+          className="flex items-center gap-1 text-on-surface-variant hover:text-primary text-xs font-mono uppercase tracking-wide transition-colors mb-6"
+        >
           <span className="material-symbols-outlined text-sm">arrow_back</span>Back
         </button>
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant/30 text-on-surface-variant text-xs font-mono uppercase tracking-widest mb-3">
-          Step 1 of 2
+          Step 2 of 2
         </div>
-        <h1 className="text-4xl font-heading font-black text-on-surface mb-1">Select Your Game</h1>
-        <p className="text-on-surface-variant font-body">Choose the game universe you want to be tested on.</p>
+        <div className="flex items-center gap-3 mb-1">
+          {game && <span className="text-3xl select-none">{game.emoji}</span>}
+          <h1 className="text-4xl font-heading font-black text-on-surface">Select Mode</h1>
+        </div>
+        {game && (
+          <p className="text-on-surface-variant font-body">
+            Playing: <span className="text-primary font-semibold">{game.name}</span>
+            {!hasMapMode && (
+              <span className="ml-2 text-xs font-mono text-outline">
+                · Character Guess only for this game
+              </span>
+            )}
+          </p>
+        )}
       </div>
 
-      {/* Game grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-        {GAMES.map(game => (
-          <GameCard
-            key={game.id}
-            game={game}
-            onClick={() => setSelected(game.id)}
-            selected={selected === game.id}
-          />
-        ))}
+      {/* Mode cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+        {availableModes.map(mode => {
+          const isSelected = selected === mode.id;
+          return (
+            <button
+              key={mode.id}
+              onClick={() => setSelected(mode.id)}
+              className={`border-2 rounded-xl p-6 text-left flex flex-col gap-4 transition-all duration-300 ${
+                isSelected
+                  ? 'border-primary bg-primary/10 shadow-[0_0_20px_rgba(210,187,255,0.2)] -translate-y-1'
+                  : 'border-outline-variant/40 bg-surface-container-low hover:border-primary/40 hover:bg-surface-container hover:-translate-y-0.5'
+              }`}
+            >
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${
+                isSelected ? 'bg-primary/20 border-primary/40' : 'bg-surface-container-high border-outline-variant/30'
+              }`}>
+                <span
+                  className={`material-symbols-outlined text-2xl ${isSelected ? 'text-primary' : 'text-on-surface-variant'}`}
+                  style={{ fontVariationSettings: isSelected ? "'FILL' 1" : "'FILL' 0" }}
+                >
+                  {mode.icon}
+                </span>
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className={`font-heading font-bold text-xl ${isSelected ? 'text-primary' : 'text-on-surface'}`}>
+                    {mode.name}
+                  </h3>
+                  {mode.id === 'character-guess' && (
+                    <span className="text-xs font-mono text-tertiary border border-tertiary/30 bg-tertiary/10 px-2 py-0.5 rounded-full">
+                      PIXELATED
+                    </span>
+                  )}
+                </div>
+                <p className="text-on-surface-variant font-body text-sm leading-relaxed">{mode.description}</p>
+              </div>
+
+              <div className="flex items-center gap-3 pt-2 border-t border-outline-variant/20">
+                <span className="text-xs font-mono text-outline flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs">quiz</span>
+                  {mode.questionCount} questions
+                </span>
+                <span className="text-xs font-mono text-outline flex items-center gap-1">
+                  <span className="material-symbols-outlined text-xs">timer</span>
+                  {mode.timeLimit}s each
+                </span>
+                {isSelected && (
+                  <span className="ml-auto text-xs font-mono text-primary flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                    Selected
+                  </span>
+                )}
+              </div>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Continue panel */}
-      {game ? (
-        <div
-          className="rounded-xl p-6 border flex flex-col sm:flex-row items-start sm:items-center gap-6 animate-fade-in"
-          style={{ background: `${game.accentColor}10`, borderColor: `${game.accentColor}40` }}
-        >
-          <div className="flex items-center gap-4 flex-1">
-            <span className="text-5xl select-none">{game.emoji}</span>
-            <div>
-              <h2 className="font-heading font-bold text-xl text-on-surface">{game.name}</h2>
-              <p className="text-on-surface-variant text-sm font-body">{game.description}</p>
-            </div>
-          </div>
+      {/* Start button */}
+      {selected ? (
+        <div className="animate-fade-in">
           <button
-            onClick={handleContinue}
-            className="flex-shrink-0 flex items-center gap-2 px-8 py-3 rounded-lg font-mono font-bold text-sm uppercase tracking-widest text-on-primary-container transition-all hover:scale-105"
+            onClick={handleStart}
+            className="w-full flex items-center justify-center gap-3 py-4 rounded-xl font-mono font-bold text-lg uppercase tracking-widest text-on-primary-container transition-all hover:scale-[1.01] hover:-skew-x-1"
             style={{
-              background: `linear-gradient(135deg, #7c3aed, ${game.accentColor})`,
-              boxShadow: `0 0 20px ${game.accentColor}40`,
+              background: 'linear-gradient(135deg, #7c3aed, #00dbe7)',
+              boxShadow: '0 0 25px rgba(210,187,255,0.35)',
             }}
           >
-            Continue
-            <span className="material-symbols-outlined text-base">arrow_forward</span>
+            <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
+            Start Quiz
           </button>
         </div>
       ) : (
-        <div className="rounded-xl p-8 text-center border border-outline-variant/20 bg-surface-container">
-          <span className="material-symbols-outlined text-4xl text-outline block mb-2">touch_app</span>
-          <p className="text-on-surface-variant font-body">Select a game above to continue</p>
+        <div className="rounded-xl p-6 text-center border border-outline-variant/20 bg-surface-container">
+          <p className="text-on-surface-variant font-body">Select a mode above to start</p>
         </div>
       )}
     </main>

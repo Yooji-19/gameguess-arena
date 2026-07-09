@@ -30,8 +30,9 @@ export interface Question {
   id: string;
   gameId: GameId;
   type: 'character' | 'map';
+  pixelate: boolean;
   prompt: string;
-  image: string; // path to public/images/...
+  image: string;
   answers: Answer[];
   difficulty: 'Easy' | 'Medium' | 'Hard';
   points: number;
