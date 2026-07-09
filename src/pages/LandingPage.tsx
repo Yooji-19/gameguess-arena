@@ -22,7 +22,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             Ewan ko 
           </h1>
           <h2 className="text-6xl md:text-8xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-br from-primary via-secondary-fixed to-tertiary uppercase leading-none tracking-tight">
-            Parin
+            Parin Talaga
           </h2>
         </div>
 
