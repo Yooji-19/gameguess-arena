@@ -18,7 +18,6 @@ const VAL  = (uuid: string) => `https://media.valorant-api.com/agents/${uuid}/fu
 const VALM = (uuid: string) => `https://media.valorant-api.com/maps/${uuid}/splash.png`;
 const PKM  = (id: number)   => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 const LOL  = (name: string) => `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg`;
-const MLBB = (path: string) => `https://static.wikia.nocookie.net/mobile-legends/images/${path}`;
 
 // ─── VALORANT agents — all 27 agents ─────────────────────────────────────────
 const makeWrong = (names: string[], correct: string, seed: string = correct) => {
@@ -31,36 +30,44 @@ const makeWrong = (names: string[], correct: string, seed: string = correct) => 
 };
 
 // All VAL agent names for distractors
-const VAL_AGENTS = ['Jett','Sage','Omen','Reyna','Cypher','Sova','Killjoy','Viper','Raze','Chamber',
-  'Brimstone','Phoenix','Breach','Skye','Yoru','Astra','KAY/O','Neon','Fade','Harbor',
-  'Gekko','Deadlock','Iso','Clove','Vyse','Tejo','Waylay'];
+const VAL_AGENTS = [
+  'Astra', 'Breach', 'Brimstone', 'Chamber', 'Clove', 'Cypher', 'Deadlock',
+  'Fade', 'Gekko', 'Harbor', 'Iso', 'Jett', 'KAY/O', 'Killjoy', 'Miks',
+  'Neon', 'Omen', 'Phoenix', 'Raze', 'Reyna', 'Sage', 'Skye', 'Sova',
+  'Tejo', 'Veto', 'Viper', 'Vyse', 'Waylay', 'Yoru',
+];
 
+// prettier-ignore
 const VALORANT_CHARACTER: Question[] = [
-  { id:'val-c-1',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('add6443a-41bd-e414-f6ad-e58d267f4e95'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Jett') },
-  { id:'val-c-2',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('569fdd95-4d10-43ab-ca70-79becc718b46'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Sage') },
-  { id:'val-c-3',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('8e253930-4c05-31dd-1b6c-968525494517'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Omen') },
-  { id:'val-c-4',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('a3bfb853-43b2-7238-a4f1-ad90e9e46bcc'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Reyna') },
-  { id:'val-c-5',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('117ed9e3-49f3-6512-3ccf-0cada7e3823b'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Cypher') },
-  { id:'val-c-6',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('320b2a48-4d9b-a075-30f1-1f93a9b638fa'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Sova') },
-  { id:'val-c-7',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('1e58de9c-4950-5125-93e9-a0aee9f98746'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Killjoy') },
-  { id:'val-c-8',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('9f0d8ba9-4140-b941-57d3-a7ad57c6b417'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Viper') },
-  { id:'val-c-9',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('f94c3b30-42be-e959-889c-5aa313dba261'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Raze') },
-  { id:'val-c-10', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('22697a3d-45bf-8dd7-4fec-84a9e28c69d7'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Chamber') },
-  { id:'val-c-11', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('9dbd505e-588d-3dde-944b-3e93c13b2674'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Brimstone') },
-  { id:'val-c-12', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('eb93336a-449b-9c1e-0ac5-b08e50f0bf90'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Phoenix') },
-  { id:'val-c-13', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('5f8d3a7f-467b-97f3-062c-13acf203c006'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Breach') },
-  { id:'val-c-14', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('6f2a04ca-43e0-be17-7f36-b3908627744d'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Skye') },
-  { id:'val-c-15', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('7f94d92c-4234-0a36-9646-3a87eb8b5c89'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Yoru') },
-  { id:'val-c-16', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('41fb69c1-4189-7b37-f117-bcaf1e96f1bf'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Astra') },
-  { id:'val-c-17', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('0e38b510-41a8-5780-5e8f-568b2a4f2d6c'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'KAY/O') },
-  { id:'val-c-18', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('bb2a4828-46eb-8cd1-e765-15848195d751'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Neon') },
-  { id:'val-c-19', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('dade69b4-4f5a-8528-247b-219e5a1facd6'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Fade') },
-  { id:'val-c-20', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('95b78ed7-4637-86d9-7e41-71ba8c293152'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Harbor') },
-  { id:'val-c-21', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('e370fa57-4757-3604-3648-319aa9d2b8e7'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Gekko') },
-  { id:'val-c-22', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('cc8b64c8-4b25-4ff9-6e7f-37b4da43d235'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Deadlock') },
-  { id:'val-c-23', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('0dfdbcc7-4b43-bb0b-1f74-059935b9c796'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Iso') },
-  { id:'val-c-24', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('1dbf2edd-4729-0984-3115-daa5eed44993'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Clove') },
-  { id:'val-c-25', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('efba5359-4016-a1e5-7626-b1ae76895940'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Vyse') },
+  { id:'val-c-1',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('41fb69c1-4189-7b37-f117-bcaf1e96f1bf'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Astra') },
+  { id:'val-c-2',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('5f8d3a7f-467b-97f3-062c-13acf203c006'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Breach') },
+  { id:'val-c-3',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('9f0d8ba9-4140-b941-57d3-a7ad57c6b417'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Brimstone') },
+  { id:'val-c-4',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('22697a3d-45bf-8dd7-4fec-84a9e28c69d7'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Chamber') },
+  { id:'val-c-5',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('1dbf2edd-4729-0984-3115-daa5eed44993'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Clove') },
+  { id:'val-c-6',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('117ed9e3-49f3-6512-3ccf-0cada7e3823b'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Cypher') },
+  { id:'val-c-7',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('cc8b64c8-4b25-4ff9-6e7f-37b4da43d235'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Deadlock') },
+  { id:'val-c-8',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('dade69b4-4f5a-8528-247b-219e5a1facd6'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Fade') },
+  { id:'val-c-9',  gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('e370fa57-4757-3604-3648-499e1f642d3f'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Gekko') },
+  { id:'val-c-10', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('95b78ed7-4637-86d9-7e41-71ba8c293152'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Harbor') },
+  { id:'val-c-11', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('0e38b510-41a8-5780-5e8f-568b2a4f2d6c'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Iso') },
+  { id:'val-c-12', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('add6443a-41bd-e414-f6ad-e58d267f4e95'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Jett') },
+  { id:'val-c-13', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('601dbbe7-43ce-be57-2a40-4abd24953621'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'KAY/O') },
+  { id:'val-c-14', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('1e58de9c-4950-5125-93e9-a0aee9f98746'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Killjoy') },
+  { id:'val-c-15', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('7c8a4701-4de6-9355-b254-e09bc2a34b72'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Miks') },
+  { id:'val-c-16', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('bb2a4828-46eb-8cd1-e765-15848195d751'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Neon') },
+  { id:'val-c-17', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('8e253930-4c05-31dd-1b6c-968525494517'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Omen') },
+  { id:'val-c-18', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('eb93336a-449b-9c1b-0a54-a891f7921d69'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Phoenix') },
+  { id:'val-c-19', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('f94c3b30-42be-e959-889c-5aa313dba261'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Raze') },
+  { id:'val-c-20', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('a3bfb853-43b2-7238-a4f1-ad90e9e46bcc'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Reyna') },
+  { id:'val-c-21', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('569fdd95-4d10-43ab-ca70-79becc718b46'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Sage') },
+  { id:'val-c-22', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('6f2a04ca-43e0-be17-7f36-b3908627744d'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Skye') },
+  { id:'val-c-23', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('320b2a48-4d9b-a075-30f1-1f93a9b638fa'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Sova') },
+  { id:'val-c-24', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('b444168c-4e35-8076-db47-ef9bf368f384'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Tejo') },
+  { id:'val-c-25', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('92eeef5d-43b5-1d4a-8d03-b3927a09034b'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Veto') },
+  { id:'val-c-26', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('707eab51-4836-f488-046a-cda6bf494859'), difficulty:'Easy',   points:100, answers:makeWrong(VAL_AGENTS,'Viper') },
+  { id:'val-c-27', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('efba5359-4016-a1e5-7626-b1ae76895940'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Vyse') },
+  { id:'val-c-28', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('df1cb487-4902-002e-5c17-d28e83e78588'), difficulty:'Hard',   points:300, answers:makeWrong(VAL_AGENTS,'Waylay') },
+  { id:'val-c-29', gameId:'valorant', type:'character', pixelate:true, prompt:'Who is this VALORANT agent?', image:VAL('7f94d92c-4234-0a36-9646-3a87eb8b5c89'), difficulty:'Medium', points:200, answers:makeWrong(VAL_AGENTS,'Yoru') },
 ];
 
 const VALORANT_MAP: Question[] = [
@@ -142,28 +149,28 @@ const LOL_CHARACTER: Question[] = LOL_NAMES.map((name, i) => ({
   answers: makeWrong(LOL_NAMES, name),
 }));
 
-// ─── MOBILE LEGENDS — 20 heroes using wikia avatars ──────────────────────────
-const MLBB_DATA: { name: string; path: string; diff: 'Easy'|'Medium'|'Hard' }[] = [
-  { name:'Layla',     path:'c/c6/Layla_avatar.png',     diff:'Easy'   },
-  { name:'Alucard',   path:'9/93/Alucard_avatar.png',   diff:'Easy'   },
-  { name:'Tigreal',   path:'5/5c/Tigreal_avatar.png',   diff:'Easy'   },
-  { name:'Kagura',    path:'7/71/Kagura_avatar.png',     diff:'Medium' },
-  { name:'Fanny',     path:'f/f7/Fanny_avatar.png',     diff:'Hard'   },
-  { name:'Gusion',    path:'a/a2/Gusion_avatar.png',    diff:'Medium' },
-  { name:'Chou',      path:'3/38/Chou_avatar.png',      diff:'Easy'   },
-  { name:'Wanwan',    path:'e/e4/Wanwan_avatar.png',    diff:'Medium' },
-  { name:'Ling',      path:'d/d4/Ling_avatar.png',      diff:'Hard'   },
-  { name:'Hayabusa',  path:'0/04/Hayabusa_avatar.png',  diff:'Hard'   },
-  { name:'Lancelot',  path:'a/a2/Lancelot_avatar.png',  diff:'Medium' },
-  { name:'Grock',     path:'4/4f/Grock_avatar.png',     diff:'Hard'   },
-  { name:'Lesley',    path:'6/6c/Lesley_avatar.png',    diff:'Medium' },
-  { name:'Lunox',     path:'7/7e/Lunox_avatar.png',     diff:'Hard'   },
-  { name:'Granger',   path:'0/0e/Granger_avatar.png',   diff:'Medium' },
-  { name:'Estes',     path:'2/2a/Estes_avatar.png',     diff:'Easy'   },
-  { name:'Franco',    path:'8/8a/Franco_avatar.png',    diff:'Easy'   },
-  { name:'Miya',      path:'6/6a/Miya_avatar.png',      diff:'Easy'   },
-  { name:'Eudora',    path:'7/7b/Eudora_avatar.png',    diff:'Easy'   },
-  { name:'Zilong',    path:'1/13/Zilong_avatar.png',    diff:'Easy'   },
+// ─── MOBILE LEGENDS — 20 heroes with working portrait URLs ────────────────────
+const MLBB_DATA: { name: string; image: string; diff: 'Easy'|'Medium'|'Hard' }[] = [
+  { name:'Layla',    image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_a05a03db633cc03ef3f733d2786073c4.jpg', diff:'Easy' },
+  { name:'Alucard',  image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_2f53289ddd423fa9bc95d380b6d79719.jpg', diff:'Easy' },
+  { name:'Tigreal',  image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_23a7a603ff9d20074777d52e2eb202f3.jpg', diff:'Easy' },
+  { name:'Kagura',   image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_732a35fdfffc4d5618f4e3a1f71e39a7.png', diff:'Medium' },
+  { name:'Fanny',    image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_523a730c11b8c22fc6c3fcc5575c29a2.png', diff:'Hard' },
+  { name:'Gusion',   image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_4348913ce6e58e49c47e13113af0f352.png', diff:'Medium' },
+  { name:'Chou',     image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_a3dd4a2b8bd5b8f25a8dd520f2c1c71a.png', diff:'Easy' },
+  { name:'Wanwan',   image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_d744e6f02ba1d9b5f246a5532cc2b201.png', diff:'Medium' },
+  { name:'Ling',     image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_cdbe15a03ad4518f37d89c9e1cbf5c4e.png', diff:'Hard' },
+  { name:'Hayabusa', image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_9be54f0bee987aa88c2dd73c054c7e1d.png', diff:'Hard' },
+  { name:'Lancelot', image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_eabcac3c9021b5537605283aa6bac461.png', diff:'Medium' },
+  { name:'Grock',    image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_47c9a9a373919fd9cc0c68ff7788b32a.png', diff:'Hard' },
+  { name:'Lesley',   image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_501184878b7de1c9e625233928627551.png', diff:'Medium' },
+  { name:'Lunox',    image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_823bd0fce2a95b8452d52750df8d35f5.png', diff:'Hard' },
+  { name:'Granger',  image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_c7e48401ff0d33cb91ff1b4a59b3c0cf.png', diff:'Medium' },
+  { name:'Estes',    image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_42b2d76fe927ce57a1d29e220e2b5eea.png', diff:'Easy' },
+  { name:'Franco',   image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_07605801972ede9147e9769ac7991aa0.png', diff:'Easy' },
+  { name:'Miya',     image:'https://indoch.s3.ml.moonlian.com/web/madmin/image_a844f9aa51baefa6878801edd85fec5e.png', diff:'Easy' },
+  { name:'Eudora',   image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_ed32e3c71ecd41652fc54a7efd02aba4.jpg', diff:'Easy' },
+  { name:'Zilong',   image:'https://akmwebstatic.yuanzhanapp.com/web/madmin/image_3bbb2c2b8a78d0d63ecd62d74048fcf4.jpg', diff:'Easy' },
 ];
 
 const MLBB_NAMES = MLBB_DATA.map(d => d.name);
@@ -174,38 +181,40 @@ const MLBB_CHARACTER: Question[] = MLBB_DATA.map((d, i) => ({
   type: 'character' as const,
   pixelate: true,
   prompt: 'Which MLBB hero is this?',
-  image: MLBB(d.path),
+  image: d.image,
   difficulty: d.diff,
   points: d.diff === 'Easy' ? 100 : d.diff === 'Medium' ? 200 : 300,
   answers: makeWrong(MLBB_NAMES, d.name),
 }));
 
-// ─── TEKKEN — 20 fighters using tekken-official.jp ───────────────────────────
-const TK_DATA: { name: string; slug: string; diff: 'Easy'|'Medium'|'Hard' }[] = [
-  { name:'Jin Kazama',         slug:'jin',         diff:'Easy'   },
-  { name:'Kazuya Mishima',     slug:'kazuya',      diff:'Easy'   },
-  { name:'Paul Phoenix',       slug:'paul',        diff:'Easy'   },
-  { name:'King',               slug:'king',        diff:'Medium' },
-  { name:'Nina Williams',      slug:'nina',        diff:'Medium' },
-  { name:'Marshall Law',       slug:'law',         diff:'Medium' },
-  { name:'Hwoarang',           slug:'hwoarang',    diff:'Hard'   },
-  { name:'Lili',               slug:'lili',        diff:'Medium' },
-  { name:'Yoshimitsu',         slug:'yoshimitsu',  diff:'Hard'   },
-  { name:'Alisa Bosconovitch', slug:'alisa',       diff:'Medium' },
-  { name:'Asuka Kazama',       slug:'asuka',       diff:'Easy'   },
-  { name:'Bryan Fury',         slug:'bryan',       diff:'Hard'   },
-  { name:'Claudio Serafino',   slug:'claudio',     diff:'Hard'   },
-  { name:'Devil Jin',          slug:'devil_jin',   diff:'Hard'   },
-  { name:'Dragunov',           slug:'dragunov',    diff:'Hard'   },
-  { name:'Eddy Gordo',         slug:'eddy',        diff:'Medium' },
-  { name:'Jack-8',             slug:'jack8',       diff:'Medium' },
-  { name:'Lars Alexandersson', slug:'lars',        diff:'Hard'   },
-  { name:'Leo Kliesen',        slug:'leo',         diff:'Hard'   },
-  { name:'Leroy Smith',        slug:'leroy',       diff:'Hard'   },
+// ─── TEKKEN — 20 fighters using working GitHub-hosted icons ───────────────────
+const TK_DATA: { name: string; file: string; diff: 'Easy'|'Medium'|'Hard' }[] = [
+  { name:'Jin Kazama',         file:'JinT8.webp',        diff:'Easy' },
+  { name:'Kazuya Mishima',     file:'KazuyaT8.webp',     diff:'Easy' },
+  { name:'Paul Phoenix',       file:'PaulT8.webp',       diff:'Easy' },
+  { name:'King',               file:'KingT8.webp',       diff:'Medium' },
+  { name:'Nina Williams',      file:'NinaT8.webp',       diff:'Medium' },
+  { name:'Marshall Law',       file:'LawT8.webp',        diff:'Medium' },
+  { name:'Hwoarang',           file:'HwoarangT8.webp',   diff:'Hard' },
+  { name:'Lili',               file:'LiliT8.webp',       diff:'Medium' },
+  { name:'Yoshimitsu',         file:'YoshimitsuT8.webp', diff:'Hard' },
+  { name:'Alisa Bosconovitch', file:'AlisaT8.webp',      diff:'Medium' },
+  { name:'Asuka Kazama',       file:'AsukaT8.webp',      diff:'Easy' },
+  { name:'Bryan Fury',         file:'BryanT8.webp',      diff:'Hard' },
+  { name:'Claudio Serafino',   file:'ClaudioT8.webp',    diff:'Hard' },
+  { name:'Devil Jin',          file:'Devil_JinT8.webp',  diff:'Hard' },
+  { name:'Dragunov',           file:'DragunovT8.webp',   diff:'Hard' },
+  { name:'Eddy Gordo',         file:'EddyT8.webp',       diff:'Medium' },
+  { name:'Jack-8',             file:'Jack-8T8.webp',     diff:'Medium' },
+  { name:'Lars Alexandersson', file:'LarsT8.webp',       diff:'Hard' },
+  { name:'Leo Kliesen',        file:'LeoT8.webp',        diff:'Hard' },
+  { name:'Leroy Smith',        file:'LeroyT8.webp',      diff:'Hard' },
 ];
 
 const TK_NAMES = TK_DATA.map(d => d.name);
-const TK_IMG = (slug: string) => `https://www.tekken-official.jp/tekken8/en/assets/images/characters/${slug}/normal_l.png`;
+
+const TK_IMG = (file: string) =>
+  `https://github.com/ewgf-gg/ewgfgg-frontend/blob/main/static/character-icons/${file}?raw=true`;
 
 const TEKKEN_CHARACTER: Question[] = TK_DATA.map((d, i) => ({
   id: `tk-c-${i+1}`,
@@ -213,7 +222,7 @@ const TEKKEN_CHARACTER: Question[] = TK_DATA.map((d, i) => ({
   type: 'character' as const,
   pixelate: true,
   prompt: 'Which Tekken fighter is this?',
-  image: TK_IMG(d.slug),
+  image: TK_IMG(d.file),
   difficulty: d.diff,
   points: d.diff === 'Easy' ? 100 : d.diff === 'Medium' ? 200 : 300,
   answers: makeWrong(TK_NAMES, d.name),
