@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { GameId, ModeId, Question, QuizResult, Answer } from '../types';
 import { GAMES, QUIZ_MODES, ALL_QUESTIONS } from '../data/mockData';
 import TimerBar from '../components/TimerBar';
@@ -14,6 +14,29 @@ interface Props {
   modeId: ModeId | null;
   onNavigate: (page: Page) => void;
   onQuizComplete: (result: QuizResult) => void;
+}
+
+// Random zoom configs — different part of image each question
+const ZOOM_CONFIGS = [
+  { scale: 2.2, originX: '50%', originY: '15%', label: 'Face area' },
+  { scale: 2.4, originX: '45%', originY: '30%', label: 'Chest area' },
+  { scale: 2.6, originX: '55%', originY: '10%', label: 'Head/helmet' },
+  { scale: 2.0, originX: '40%', originY: '50%', label: 'Mid body' },
+  { scale: 2.8, originX: '60%', originY: '20%', label: 'Shoulder' },
+  { scale: 2.2, originX: '50%', originY: '60%', label: 'Lower body' },
+  { scale: 2.5, originX: '35%', originY: '25%', label: 'Left side' },
+  { scale: 2.5, originX: '65%', originY: '25%', label: 'Right side' },
+  { scale: 3.0, originX: '50%', originY: '5%',  label: 'Top of head' },
+  { scale: 2.0, originX: '50%', originY: '75%', label: 'Legs/feet' },
+];
+
+function getZoomForQuestion(questionId: string) {
+  // Deterministic random based on question ID so it's always the same per question
+  let hash = 0;
+  for (let i = 0; i < questionId.length; i++) {
+    hash = (hash * 31 + questionId.charCodeAt(i)) % ZOOM_CONFIGS.length;
+  }
+  return ZOOM_CONFIGS[hash];
 }
 
 export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizComplete }: Props) {
@@ -46,6 +69,12 @@ export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizCom
   const total = questions.length;
   const LABELS = ['A', 'B', 'C', 'D'];
   const shouldPixelate = currentQ?.pixelate && !revealed;
+
+  // Get zoom config for this specific question — consistent per question ID
+  const zoomConfig = useMemo(
+    () => currentQ ? getZoomForQuestion(currentQ.id) : ZOOM_CONFIGS[0],
+    [currentQ?.id]
+  );
 
   const finishQuiz = useCallback((
     finalScore: number, finalCorrect: number,
@@ -210,7 +239,6 @@ export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizCom
           </div>
         </div>
 
-        {/* Timer */}
         <TimerBar
           key={currentIndex}
           timeLimit={mode?.timeLimit ?? 20}
@@ -223,7 +251,6 @@ export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizCom
       {/* Main */}
       <main className="flex-1 relative z-10 max-w-5xl mx-auto w-full px-4 md:px-10 py-4 flex flex-col lg:flex-row gap-6">
 
-        {/* Left: image */}
         <div className="w-full lg:w-1/2 flex flex-col gap-3">
 
           {/* Badges */}
@@ -249,7 +276,6 @@ export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizCom
             <span className="text-xs font-mono text-primary ml-auto">+{currentQ.points} pts</span>
           </div>
 
-          {/* Prompt */}
           <h2 className="text-2xl font-heading font-bold text-white leading-snug">
             {currentQ.prompt}
           </h2>
@@ -266,12 +292,6 @@ export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizCom
               </div>
             ) : (
               <>
-                {/*
-                  ZOOM + BLUR strategy:
-                  - Zoomed: scale image to 200%, center it (object-position center top
-                    to focus on character face/body), light blur only
-                  - Revealed: full image, no blur
-                */}
                 <img
                   key={currentQ.id}
                   src={currentQ.image}
@@ -283,25 +303,28 @@ export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizCom
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    // Focus on top-center where character faces/bodies usually are
-                    objectPosition: shouldPixelate ? 'center 20%' : 'center center',
-                    // Scale up to zoom in — 180% zooms without losing the subject
-                    transform: shouldPixelate ? 'scale(1.8)' : 'scale(1)',
-                    transformOrigin: 'center 30%',
-                    // Light blur — enough to make it harder but you can still see the character
+                    objectPosition: 'center center',
+                    // Random zoom per question — scale and origin from zoomConfig
+                    transform: shouldPixelate
+                      ? `scale(${zoomConfig.scale})`
+                      : 'scale(1)',
+                    transformOrigin: shouldPixelate
+                      ? `${zoomConfig.originX} ${zoomConfig.originY}`
+                      : 'center center',
+                    // Very light blur — just enough to soften edges, not hide everything
                     filter: shouldPixelate
-                      ? 'blur(5px) brightness(0.95)'
+                      ? 'blur(2.5px) brightness(1.0)'
                       : 'blur(0px) brightness(1)',
-                    transition: 'transform 0.7s ease, filter 0.7s ease, object-position 0.7s ease',
+                    transition: 'transform 0.7s ease, filter 0.7s ease, transform-origin 0.7s ease',
                   }}
                 />
 
-                {/* Subtle vignette to hide the hard zoom edges */}
+                {/* Soft vignette to hide the hard crop edges */}
                 {shouldPixelate && (
                   <div
                     className="absolute inset-0 pointer-events-none z-10"
                     style={{
-                      background: 'radial-gradient(ellipse 70% 70% at center 30%, transparent 50%, rgba(11,19,38,0.85) 100%)',
+                      background: 'radial-gradient(ellipse 60% 60% at 50% 50%, transparent 40%, rgba(11,19,38,0.9) 100%)',
                     }}
                   />
                 )}
@@ -332,7 +355,6 @@ export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizCom
             )}
           </div>
 
-          {/* Time up hint */}
           {isAnswered && lastCorrect === false && !Object.values(answerStates).includes('incorrect') && (
             <p className="text-center text-xs font-mono text-valo-red flex items-center justify-center gap-1">
               <span className="material-symbols-outlined text-sm">timer_off</span>
