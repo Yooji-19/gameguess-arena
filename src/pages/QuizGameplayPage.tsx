@@ -10,6 +10,7 @@ type AnswerState = 'default' | 'correct' | 'incorrect' | 'revealed';
 
 interface Props {
   gameId: GameId | null;
+  gameIds: GameId[];
   modeId: ModeId | null;
   onNavigate: (page: Page) => void;
   onQuizComplete: (result: QuizResult) => void;
@@ -31,13 +32,16 @@ function PixelatedImage({
 
     const canvas = canvasRef.current;
     const context = canvas?.getContext('2d');
+
     if (!canvas || !context) return;
 
     const image = new Image();
 
     image.onload = () => {
-      canvas.width = 32;
-      canvas.height = 20;
+      // Higher values = less pixelated
+      canvas.width = 20;
+      canvas.height = 13;
+
       context.imageSmoothingEnabled = false;
       context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -95,15 +99,22 @@ function PixelatedImage({
   );
 }
 
-export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizComplete }: Props) {
-  const game = GAMES.find(g => g.id === gameId);
+export default function QuizGameplayPage({ gameId, gameIds, modeId, onNavigate, onQuizComplete }: Props) {
+  // Support both single game and multi-game
+  const activeGameIds: GameId[] = gameIds.length > 0 ? gameIds : gameId ? [gameId] : [];
+  const isMultiGame = activeGameIds.length > 1;
+
   const mode = QUIZ_MODES.find(m => m.id === modeId);
 
   const [questions] = useState<Question[]>(() => {
-    if (!gameId || !modeId) return [];
-    const pool = modeId === 'character-guess'
-      ? ALL_QUESTIONS[gameId]?.character ?? []
-      : ALL_QUESTIONS[gameId]?.map ?? [];
+    if (!modeId || activeGameIds.length === 0) return [];
+    const pool: Question[] = [];
+    for (const gid of activeGameIds) {
+      const gamePool = modeId === 'character-guess'
+        ? ALL_QUESTIONS[gid]?.character ?? []
+        : ALL_QUESTIONS[gid]?.map ?? [];
+      pool.push(...gamePool);
+    }
     return shuffleArray(pool).slice(0, mode?.questionCount ?? 10);
   });
 
@@ -125,21 +136,30 @@ export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizCom
   const total = questions.length;
   const LABELS = ['A', 'B', 'C', 'D'];
 
-  // Pixelate character images until the answer is revealed.
   const isCharacterMode = modeId === 'character-guess';
   const shouldPixelate = isCharacterMode && !revealed;
   const handleImageError = useCallback(() => setImgError(true), []);
 
+  // Show the game that the current question belongs to
+  const currentGame = GAMES.find(g => g.id === (currentQ?.gameId ?? activeGameIds[0]));
+
   const finishQuiz = useCallback((fs: number, fc: number, fk: number, fb: number) => {
     const accuracy = total > 0 ? Math.round((fc / total) * 100) : 0;
     const result: QuizResult = {
-      gameId: gameId!, modeId: modeId!, score: fs, totalQuestions: total,
-      correctAnswers: fc, accuracy, timeBonus: fb, maxStreak: fk,
-      rank: calculateRank(accuracy), date: new Date().toISOString(),
+      gameId: activeGameIds[0] ?? 'valorant',
+      modeId: modeId!,
+      score: fs,
+      totalQuestions: total,
+      correctAnswers: fc,
+      accuracy,
+      timeBonus: fb,
+      maxStreak: fk,
+      rank: calculateRank(accuracy),
+      date: new Date().toISOString(),
     };
     onQuizComplete(result);
     onNavigate('results');
-  }, [gameId, modeId, total, onQuizComplete, onNavigate]);
+  }, [activeGameIds, modeId, total, onQuizComplete, onNavigate]);
 
   const handleAnswer = useCallback((answer: Answer) => {
     if (isAnswered || !currentQ) return;
@@ -194,7 +214,7 @@ export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizCom
     </div>
   );
 
-  const accentColor = game?.accentColor ?? '#d2bbff';
+  const accentColor = currentGame?.accentColor ?? '#d2bbff';
   const progressPct = (currentIndex / total) * 100;
   const earnedThisQ = currentQ.points
     + calculateTimeBonus(timeLeft, mode?.timeLimit ?? 20)
@@ -213,8 +233,11 @@ export default function QuizGameplayPage({ gameId, modeId, onNavigate, onQuizCom
             <span className="material-symbols-outlined">close</span>
           </button>
           <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant/30">
-            <span className="text-sm select-none">{game?.emoji}</span>
-            <span className="text-xs font-mono text-on-surface-variant">{game?.shortName}</span>
+            <span className="text-sm select-none">{currentGame?.emoji}</span>
+            <span className="text-xs font-mono text-on-surface-variant">{currentGame?.shortName}</span>
+            {isMultiGame && (
+              <span className="text-xs font-mono text-outline">· Multi</span>
+            )}
           </div>
           <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-surface-container border border-outline-variant/20">
             <span className="material-symbols-outlined text-xs text-outline">

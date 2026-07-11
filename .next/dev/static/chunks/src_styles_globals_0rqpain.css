@@ -308,6 +308,10 @@ img, video {
   right: 25%;
 }
 
+.right-2 {
+  right: .5rem;
+}
+
 .right-3 {
   right: .75rem;
 }
@@ -326,6 +330,10 @@ img, video {
 
 .top-1\/4 {
   top: 25%;
+}
+
+.top-2 {
+  top: .5rem;
 }
 
 .top-3 {
@@ -395,10 +403,6 @@ img, video {
 
 .mb-8 {
   margin-bottom: 2rem;
-}
-
-.ml-2 {
-  margin-left: .5rem;
 }
 
 .ml-auto {
@@ -1123,6 +1127,11 @@ img, video {
   padding-bottom: .5rem;
 }
 
+.py-2\.5 {
+  padding-top: .625rem;
+  padding-bottom: .625rem;
+}
+
 .py-20 {
   padding-top: 5rem;
   padding-bottom: 5rem;
@@ -1262,6 +1271,10 @@ img, video {
   text-transform: uppercase;
 }
 
+.normal-case {
+  text-transform: none;
+}
+
 .italic {
   font-style: italic;
 }
@@ -1276,6 +1289,10 @@ img, video {
 
 .leading-snug {
   line-height: 1.375;
+}
+
+.tracking-normal {
+  letter-spacing: 0;
 }
 
 .tracking-tight {
@@ -1368,8 +1385,16 @@ img, video {
   opacity: .2;
 }
 
+.opacity-40 {
+  opacity: .4;
+}
+
 .opacity-60 {
   opacity: .6;
+}
+
+.opacity-80 {
+  opacity: .8;
 }
 
 .shadow-\[0_0_20px_rgba\(116\,245\,255\,0\.4\)\] {
@@ -1721,6 +1746,10 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .sm\:flex-row {
     flex-direction: row;
   }
@@ -1745,6 +1774,10 @@ body {
 
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .md\:px-10 {

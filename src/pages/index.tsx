@@ -16,6 +16,7 @@ type Page = 'home' | 'games' | 'quiz-mode' | 'quiz' | 'results' | 'leaderboard';
 const Home: NextPage = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [selectedGame, setSelectedGame] = useState<GameId | null>(null);
+  const [selectedGames, setSelectedGames] = useState<GameId[]>([]);
   const [selectedMode, setSelectedMode] = useState<ModeId | null>(null);
   const [quizResult, setQuizResult] = useState<QuizResult | null>(null);
 
@@ -29,7 +30,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Guess IT</title>
+        <title>GameGuess Arena</title>
         <meta name="description" content="Gaming trivia booth — identify characters, maps, and stages." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>" />
@@ -52,12 +53,14 @@ const Home: NextPage = () => {
             selectedGameId={selectedGame}
             onNavigate={handleNavigate}
             onSelectMode={(id) => setSelectedMode(id)}
+            onSelectGames={(ids) => setSelectedGames(ids)}
           />
         )}
 
         {currentPage === 'quiz' && (
           <QuizGameplayPage
             gameId={selectedGame}
+            gameIds={selectedGames}
             modeId={selectedMode}
             onNavigate={handleNavigate}
             onQuizComplete={(r) => setQuizResult(r)}

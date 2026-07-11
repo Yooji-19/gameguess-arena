@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 
 interface TimerBarProps {
   timeLimit: number;
@@ -11,20 +11,33 @@ interface TimerBarProps {
 export default function TimerBar({ timeLimit, isActive, onTimeUp, onTick }: TimerBarProps) {
   const [timeLeft, setTimeLeft] = useState(timeLimit);
 
-  useEffect(() => { setTimeLeft(timeLimit); }, [timeLimit]);
+  // Store callbacks in refs so they never cause the effect to re-run
+  const onTimeUpRef = useRef(onTimeUp);
+  const onTickRef = useRef(onTick);
+  useEffect(() => { onTimeUpRef.current = onTimeUp; }, [onTimeUp]);
+  useEffect(() => { onTickRef.current = onTick; }, [onTick]);
 
+  // Reset when a new question starts (timeLimit changes)
+  useEffect(() => {
+    setTimeLeft(timeLimit);
+  }, [timeLimit]);
+
+  // Tick interval — only depends on isActive and timeLeft
   useEffect(() => {
     if (!isActive) return;
-    if (timeLeft <= 0) { onTimeUp(); return; }
+    if (timeLeft <= 0) {
+      onTimeUpRef.current();
+      return;
+    }
     const t = setInterval(() => {
       setTimeLeft(prev => {
         const next = prev - 1;
-        onTick?.(next);
+        onTickRef.current?.(next);
         return next;
       });
     }, 1000);
     return () => clearInterval(t);
-  }, [isActive, timeLeft, onTimeUp, onTick]);
+  }, [isActive, timeLeft]);
 
   const pct = (timeLeft / timeLimit) * 100;
   const isWarning = timeLeft <= 5;
