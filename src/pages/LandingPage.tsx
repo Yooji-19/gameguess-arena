@@ -19,7 +19,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
         {/* Title */}
         <div className="flex flex-col gap-2">
           <h1 className="text-6xl md:text-8xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-br from-primary via-secondary-fixed to-tertiary uppercase leading-none tracking-tight">
-            UEZE Booth 
+            UEZE  
           </h1>
           <h2 className="text-6xl md:text-8xl font-heading font-black text-transparent bg-clip-text bg-gradient-to-br from-primary via-secondary-fixed to-tertiary uppercase leading-none tracking-tight">
             Mini Game
