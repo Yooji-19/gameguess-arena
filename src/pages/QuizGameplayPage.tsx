@@ -5,12 +5,15 @@ import TimerBar from '../components/TimerBar';
 import AnswerButton from '../components/AnswerButton';
 import { calculateTimeBonus, calculateStreakBonus, calculateRank, shuffleArray } from '../utils';
 
+// Prevent Next.js from prerendering this page — it needs runtime props
+export const dynamic = 'force-dynamic';
+
 type Page = 'home' | 'games' | 'quiz-mode' | 'quiz' | 'results' | 'leaderboard';
 type AnswerState = 'default' | 'correct' | 'incorrect' | 'revealed';
 
 interface Props {
   gameId: GameId | null;
-  gameIds: GameId[];
+  gameIds?: GameId[];
   modeId: ModeId | null;
   onNavigate: (page: Page) => void;
   onQuizComplete: (result: QuizResult) => void;
@@ -38,7 +41,6 @@ function PixelatedImage({
     const image = new Image();
 
     image.onload = () => {
-      // Higher values = less pixelated
       canvas.width = 20;
       canvas.height = 13;
 
@@ -99,7 +101,7 @@ function PixelatedImage({
   );
 }
 
-export default function QuizGameplayPage({ gameId, gameIds, modeId, onNavigate, onQuizComplete }: Props) {
+export default function QuizGameplayPage({ gameId, gameIds = [], modeId, onNavigate, onQuizComplete }: Props) {
   // Support both single game and multi-game
   const activeGameIds: GameId[] = gameIds.length > 0 ? gameIds : gameId ? [gameId] : [];
   const isMultiGame = activeGameIds.length > 1;
@@ -140,7 +142,6 @@ export default function QuizGameplayPage({ gameId, gameIds, modeId, onNavigate, 
   const shouldPixelate = isCharacterMode && !revealed;
   const handleImageError = useCallback(() => setImgError(true), []);
 
-  // Show the game that the current question belongs to
   const currentGame = GAMES.find(g => g.id === (currentQ?.gameId ?? activeGameIds[0]));
 
   const finishQuiz = useCallback((fs: number, fc: number, fk: number, fb: number) => {
@@ -275,8 +276,6 @@ export default function QuizGameplayPage({ gameId, gameIds, modeId, onNavigate, 
 
       {/* Main */}
       <main className="flex-1 relative z-10 max-w-5xl mx-auto w-full px-4 md:px-10 py-4 flex flex-col lg:flex-row gap-6">
-
-        {/* Left: image */}
         <div className="w-full lg:w-1/2 flex flex-col gap-3">
           <div className="flex items-center gap-2">
             <span className={`text-xs font-mono border rounded-full px-2 py-0.5 ${
@@ -301,7 +300,6 @@ export default function QuizGameplayPage({ gameId, gameIds, modeId, onNavigate, 
 
           <h2 className="text-2xl font-heading font-bold text-white leading-snug">{currentQ.prompt}</h2>
 
-          {/* Image box */}
           <div className="relative w-full rounded-xl overflow-hidden border border-surface-variant bg-surface-container-high"
             style={{ height: '300px' }}>
             {imgError ? (
@@ -335,14 +333,12 @@ export default function QuizGameplayPage({ gameId, gameIds, modeId, onNavigate, 
                   />
                 )}
 
-                {/* "?" badge */}
                 {shouldPixelate && (
                   <div className="absolute top-3 right-3 z-20 w-9 h-9 rounded-full bg-black/50 border border-white/20 flex items-center justify-center">
                     <span className="text-white/70 font-mono font-bold text-base">?</span>
                   </div>
                 )}
 
-                {/* Answer feedback */}
                 {isAnswered && lastCorrect !== null && (
                   <div className="absolute inset-0 flex items-end justify-center pb-4 z-20 pointer-events-none">
                     <div className={`px-4 py-2 rounded-full border-2 font-mono font-bold text-sm flex items-center gap-2 backdrop-blur-sm ${
@@ -369,7 +365,6 @@ export default function QuizGameplayPage({ gameId, gameIds, modeId, onNavigate, 
           )}
         </div>
 
-        {/* Right: answers */}
         <div className="w-full lg:w-1/2 flex flex-col gap-3 justify-center">
           {currentQ.answers.map((answer, idx) => (
             <AnswerButton key={answer.id} label={LABELS[idx]} text={answer.text}

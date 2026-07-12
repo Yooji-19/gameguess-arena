@@ -11,6 +11,9 @@ import QuizGameplayPage from './QuizGameplayPage';
 import ResultsPage from './ResultsPage';
 import LeaderboardPage from './LeaderboardPage';
 
+// Prevent static prerendering — this app is fully client-side
+export const dynamic = 'force-dynamic';
+
 type Page = 'home' | 'games' | 'quiz-mode' | 'quiz' | 'results' | 'leaderboard';
 
 const Home: NextPage = () => {
@@ -30,7 +33,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>GameGuess Arena</title>
+        <title>UEZE Booth Game</title>
         <meta name="description" content="Gaming trivia booth — identify characters, maps, and stages." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>" />
