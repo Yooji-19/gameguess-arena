@@ -11,6 +11,8 @@ export const dynamic = 'force-dynamic';
 type Page = 'home' | 'games' | 'quiz-mode' | 'quiz' | 'results' | 'leaderboard';
 type AnswerState = 'default' | 'correct' | 'incorrect' | 'revealed';
 
+const BASE_POINTS_PER_CORRECT = 100;
+
 interface Props {
   gameId: GameId | null;
   gameIds?: GameId[];
@@ -177,7 +179,7 @@ export default function QuizGameplayPage({ gameId, gameIds = [], modeId, onNavig
     if (answer.isCorrect) {
       const tB = calculateTimeBonus(timeLeft, mode?.timeLimit ?? 20);
       const sB = calculateStreakBonus(streak + 1);
-      setScore(p => p + currentQ.points + tB + sB);
+      setScore(p => p + BASE_POINTS_PER_CORRECT + tB + sB);
       setTotalTimeBonus(p => p + tB);
       setStreak(p => { const ns = p + 1; setMaxStreak(m => Math.max(m, ns)); return ns; });
       setCorrectCount(p => p + 1);
@@ -217,7 +219,7 @@ export default function QuizGameplayPage({ gameId, gameIds = [], modeId, onNavig
 
   const accentColor = currentGame?.accentColor ?? '#d2bbff';
   const progressPct = (currentIndex / total) * 100;
-  const earnedThisQ = currentQ.points
+  const earnedThisQ = BASE_POINTS_PER_CORRECT
     + calculateTimeBonus(timeLeft, mode?.timeLimit ?? 20)
     + calculateStreakBonus(streak);
 
@@ -278,11 +280,6 @@ export default function QuizGameplayPage({ gameId, gameIds = [], modeId, onNavig
       <main className="flex-1 relative z-10 max-w-5xl mx-auto w-full px-4 md:px-10 py-4 flex flex-col lg:flex-row gap-6">
         <div className="w-full lg:w-1/2 flex flex-col gap-3">
           <div className="flex items-center gap-2">
-            <span className={`text-xs font-mono border rounded-full px-2 py-0.5 ${
-              currentQ.difficulty === 'Hard'   ? 'text-valo-red border-valo-red/40 bg-valo-red/10' :
-              currentQ.difficulty === 'Medium' ? 'text-tertiary border-tertiary/40 bg-tertiary/10' :
-                                                 'text-secondary-fixed border-secondary-fixed/40 bg-secondary-fixed/10'
-            }`}>{currentQ.difficulty}</span>
             {shouldPixelate && (
               <span className="text-xs font-mono text-tertiary border border-tertiary/30 bg-tertiary/10 px-2 py-0.5 rounded-full flex items-center gap-1">
                 <span className="material-symbols-outlined text-xs">grid_on</span>
@@ -295,7 +292,7 @@ export default function QuizGameplayPage({ gameId, gameIds = [], modeId, onNavig
                 Revealed
               </span>
             )}
-            <span className="text-xs font-mono text-primary ml-auto">+{currentQ.points} pts</span>
+            <span className="text-xs font-mono text-primary ml-auto">+{BASE_POINTS_PER_CORRECT} base pts</span>
           </div>
 
           <h2 className="text-2xl font-heading font-bold text-white leading-snug">{currentQ.prompt}</h2>
