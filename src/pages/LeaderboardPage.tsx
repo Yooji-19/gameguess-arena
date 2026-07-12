@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { LeaderboardEntry } from '../types';
+import { GameId, LeaderboardEntry } from '../types';
 import { GAMES, QUIZ_MODES } from '../data/mockData';
 import { getLeaderboard, clearLeaderboard } from '../utils';
 
@@ -11,6 +11,18 @@ interface LeaderboardPageProps {
 }
 
 const RANK_MEDALS: Record<number, string> = { 1: '🥇', 2: '🥈', 3: '🥉' };
+
+function getEntryGameIds(entry: LeaderboardEntry): GameId[] {
+  const storedGameIds = (
+    entry as LeaderboardEntry & { gameIds?: GameId[] }
+  ).gameIds;
+
+  if (Array.isArray(storedGameIds) && storedGameIds.length > 0) {
+    return storedGameIds;
+  }
+
+  return entry.gameId ? [entry.gameId] : [];
+}
 
 export default function LeaderboardPage({ onNavigate }: LeaderboardPageProps) {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
@@ -142,7 +154,10 @@ export default function LeaderboardPage({ onNavigate }: LeaderboardPageProps) {
             </div>
 
             {ranked.map((entry) => {
-              const game = GAMES.find(g => g.id === entry.gameId);
+              const entryGames = getEntryGameIds(entry)
+                .map(gameId => GAMES.find(game => game.id === gameId))
+                .filter((game): game is NonNullable<typeof game> => Boolean(game));
+
               const mode = QUIZ_MODES.find(m => m.id === entry.modeId);
               const isTop3 = entry.rank <= 3;
               return (
@@ -185,12 +200,28 @@ export default function LeaderboardPage({ onNavigate }: LeaderboardPageProps) {
                     </span>
                   </div>
 
-                  {/* Game + mode */}
-                  <div className="col-span-3 hidden sm:flex items-center justify-end gap-1">
-                    <span className="text-base select-none">{game?.emoji}</span>
-                    <span className="text-xs font-mono text-outline bg-surface-container border border-outline-variant/30 px-2 py-0.5 rounded-full">
-                      {game?.shortName}
-                    </span>
+                  {/* Games used in the quiz */}
+                  <div className="col-span-3 hidden sm:flex items-center justify-end gap-1.5 flex-wrap">
+                    {entryGames.length > 1 && (
+                      <span className="text-[10px] font-mono uppercase tracking-wide text-primary">
+                        Multi
+                      </span>
+                    )}
+
+                    {entryGames.map(game => (
+                      <span
+                        key={game.id}
+                        className="inline-flex items-center gap-1 text-xs font-mono text-outline bg-surface-container border border-outline-variant/30 px-2 py-0.5 rounded-full"
+                        title={game.name}
+                      >
+                        <span className="text-sm select-none">{game.emoji}</span>
+                        {game.shortName}
+                      </span>
+                    ))}
+
+                    {entryGames.length === 0 && (
+                      <span className="text-xs font-mono text-outline">Unknown</span>
+                    )}
                   </div>
                 </div>
               );

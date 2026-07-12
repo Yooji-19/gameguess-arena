@@ -19,6 +19,7 @@ export function saveToLeaderboard(playerName: string, result: QuizResult): void 
       playerName: playerName.trim() || 'Player',
       score: result.score,
       gameId: result.gameId,
+      gameIds: result.gameIds ?? [result.gameId],
       modeId: result.modeId,
       accuracy: result.accuracy,
       date: new Date().toLocaleDateString('en-PH', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),

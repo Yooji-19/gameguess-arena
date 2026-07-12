@@ -148,8 +148,9 @@ export default function QuizGameplayPage({ gameId, gameIds = [], modeId, onNavig
 
   const finishQuiz = useCallback((fs: number, fc: number, fk: number, fb: number) => {
     const accuracy = total > 0 ? Math.round((fc / total) * 100) : 0;
-    const result: QuizResult = {
+    const result: QuizResult & { gameIds: GameId[] } = {
       gameId: activeGameIds[0] ?? 'valorant',
+      gameIds: activeGameIds,
       modeId: modeId!,
       score: fs,
       totalQuestions: total,

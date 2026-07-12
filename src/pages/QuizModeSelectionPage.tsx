@@ -21,9 +21,13 @@ export default function QuizModeSelectionPage({
   onSelectGames,
 }: QuizModePageProps) {
   const [selectedMode, setSelectedMode] = useState<ModeId | null>(null);
-  const [multiMode, setMultiMode] = useState(false);
+
+  // A null selectedGameId means the user entered through the separate
+  // Multi-Game option on the game-selection page.
+  const isMultiGame = selectedGameId === null;
+
   const [selectedGames, setSelectedGames] = useState<GameId[]>(
-    selectedGameId ? [selectedGameId] : []
+    isMultiGame ? [] : [selectedGameId]
   );
 
   const toggleGame = (id: GameId) => {
@@ -32,37 +36,50 @@ export default function QuizModeSelectionPage({
     );
   };
 
-  // If multi-mode, map mode only available if selected games all support maps
-  const hasMapMode = multiMode
-    ? selectedGames.every(id => GAMES_WITH_MAPS.includes(id)) && selectedGames.length > 0
-    : selectedGameId ? GAMES_WITH_MAPS.includes(selectedGameId) : false;
+  const hasMapMode = isMultiGame
+    ? selectedGames.length >= 2 &&
+      selectedGames.every(id => GAMES_WITH_MAPS.includes(id))
+    : selectedGameId
+      ? GAMES_WITH_MAPS.includes(selectedGameId)
+      : false;
 
   const availableModes = QUIZ_MODES.filter(m => {
     if (m.id === 'map-region') return hasMapMode;
     return true;
   });
 
-  // Count available questions for selected games + mode
+  const gamesForQuiz = isMultiGame
+    ? selectedGames
+    : selectedGameId
+      ? [selectedGameId]
+      : [];
+
   const questionCount = selectedMode
-    ? (multiMode ? selectedGames : [selectedGameId ?? '']).reduce((acc, gid) => {
+    ? gamesForQuiz.reduce((acc, gid) => {
         const pool = selectedMode === 'character-guess'
           ? ALL_QUESTIONS[gid]?.character ?? []
           : ALL_QUESTIONS[gid]?.map ?? [];
+
         return acc + pool.length;
       }, 0)
     : 0;
 
-  const canStart = selectedMode !== null && (multiMode ? selectedGames.length >= 1 : selectedGameId !== null);
+  const canStart =
+    selectedMode !== null &&
+    questionCount > 0 &&
+    (isMultiGame ? selectedGames.length >= 2 : selectedGameId !== null);
 
   const handleStart = () => {
     if (!canStart || !selectedMode) return;
-    const games = multiMode ? selectedGames : [selectedGameId!];
-    onSelectGames(games);
+
+    onSelectGames(gamesForQuiz);
     onSelectMode(selectedMode);
     onNavigate('quiz');
   };
 
-  const singleGame = !multiMode && selectedGameId ? GAMES.find(g => g.id === selectedGameId) : null;
+  const singleGame = !isMultiGame && selectedGameId
+    ? GAMES.find(g => g.id === selectedGameId)
+    : null;
 
   return (
     <main className="pt-20 pb-24 md:pb-8 px-4 md:px-12 max-w-5xl mx-auto min-h-screen">
@@ -76,47 +93,27 @@ export default function QuizModeSelectionPage({
 
         <div className="flex items-center gap-3 mb-1">
           {singleGame && <span className="text-3xl select-none">{singleGame.emoji}</span>}
-          <h1 className="text-4xl font-heading font-black text-on-surface">Select Mode</h1>
+          <h1 className="text-4xl font-heading font-black text-on-surface">
+            {isMultiGame ? 'Build Multi-Game Quiz' : 'Select Mode'}
+          </h1>
         </div>
-        {singleGame && !multiMode && (
+
+        {singleGame && (
           <p className="text-on-surface-variant font-body">
             Playing: <span className="text-primary font-semibold">{singleGame.name}</span>
           </p>
         )}
+
+        {isMultiGame && (
+          <p className="text-on-surface-variant font-body">
+            Choose at least two games, then select a quiz mode.
+          </p>
+        )}
       </div>
 
-      {/* Single vs Multi toggle */}
-      <div className="flex gap-2 mb-8">
-        <button
-          onClick={() => { setMultiMode(false); setSelectedGames(selectedGameId ? [selectedGameId] : []); }}
-          className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-mono text-sm uppercase tracking-wide border transition-all ${
-            !multiMode
-              ? 'bg-primary/20 border-primary text-primary'
-              : 'border-outline-variant/40 text-on-surface-variant hover:border-primary/40 hover:text-primary'
-          }`}
-        >
-          <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: !multiMode ? "'FILL' 1" : "'FILL' 0" }}>
-            sports_esports
-          </span>
-          Single Game
-        </button>
-        <button
-          onClick={() => { setMultiMode(true); setSelectedGames(selectedGameId ? [selectedGameId] : []); }}
-          className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-mono text-sm uppercase tracking-wide border transition-all ${
-            multiMode
-              ? 'bg-primary/20 border-primary text-primary'
-              : 'border-outline-variant/40 text-on-surface-variant hover:border-primary/40 hover:text-primary'
-          }`}
-        >
-          <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: multiMode ? "'FILL' 1" : "'FILL' 0" }}>
-            layers
-          </span>
-          Multi Game
-        </button>
-      </div>
 
       {/* Multi game selector */}
-      {multiMode && (
+      {isMultiGame && (
         <div className="mb-8 animate-fade-in">
           <p className="text-on-surface-variant font-body text-sm mb-3">
             Select which games to include in the quiz:
@@ -151,15 +148,14 @@ export default function QuizModeSelectionPage({
               );
             })}
           </div>
-          {selectedGames.length === 0 && (
+          {selectedGames.length < 2 ? (
             <p className="text-valo-red text-xs font-mono mt-2 flex items-center gap-1">
               <span className="material-symbols-outlined text-sm">warning</span>
-              Select at least one game to continue
+              Select at least two games to continue
             </p>
-          )}
-          {selectedGames.length > 0 && (
+          ) : (
             <p className="text-on-surface-variant text-xs font-mono mt-2">
-              {selectedGames.length} game{selectedGames.length > 1 ? 's' : ''} selected · Questions will be mixed from all selected games
+              {selectedGames.length} games selected · Questions will be mixed from all selected games
             </p>
           )}
         </div>
@@ -220,7 +216,7 @@ export default function QuizModeSelectionPage({
         })}
 
         {/* Map mode locked notice for multi-game when not all support it */}
-        {multiMode && !hasMapMode && selectedGames.length > 0 && (
+        {isMultiGame && !hasMapMode && selectedGames.length >= 2 && (
           <div className="border-2 border-outline-variant/20 rounded-xl p-6 text-left flex flex-col gap-4 opacity-40">
             <div className="w-12 h-12 rounded-xl flex items-center justify-center border bg-surface-container-high border-outline-variant/30">
               <span className="material-symbols-outlined text-2xl text-outline">map</span>
@@ -243,7 +239,7 @@ export default function QuizModeSelectionPage({
           >
             <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
             Start Quiz
-            {multiMode && selectedGames.length > 1 && (
+            {isMultiGame && selectedGames.length >= 2 && (
               <span className="text-sm opacity-80 font-mono normal-case tracking-normal">
                 · {selectedGames.length} games mixed
               </span>
@@ -253,9 +249,11 @@ export default function QuizModeSelectionPage({
       ) : (
         <div className="rounded-xl p-6 text-center border border-outline-variant/20 bg-surface-container">
           <p className="text-on-surface-variant font-body">
-            {multiMode && selectedGames.length === 0
-              ? 'Select at least one game above, then pick a mode'
-              : 'Select a mode above to start'}
+            {isMultiGame && selectedGames.length < 2
+              ? 'Select at least two games above, then pick a mode'
+              : selectedMode && questionCount === 0
+                ? 'No questions are available for this selection'
+                : 'Select a mode above to start'}
           </p>
         </div>
       )}

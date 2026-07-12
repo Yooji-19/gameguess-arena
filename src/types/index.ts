@@ -1,4 +1,10 @@
-export type GameId = 'valorant' | 'mobile-legends' | 'pokemon' | 'league-of-legends' | 'tekken';
+export type GameId =
+  | 'valorant'
+  | 'mobile-legends'
+  | 'pokemon'
+  | 'league-of-legends'
+  | 'tekken';
+
 export type ModeId = 'character-guess' | 'map-region';
 
 export interface Game {
@@ -40,6 +46,7 @@ export interface Question {
 
 export interface QuizResult {
   gameId: GameId;
+  gameIds?: GameId[];
   modeId: ModeId;
   score: number;
   totalQuestions: number;
@@ -56,6 +63,7 @@ export interface LeaderboardEntry {
   playerName: string;
   score: number;
   gameId: GameId;
+  gameIds?: GameId[];
   modeId: ModeId;
   accuracy: number;
   date: string;
