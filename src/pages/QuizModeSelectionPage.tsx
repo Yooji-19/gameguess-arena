@@ -12,7 +12,7 @@ interface QuizModePageProps {
   onSelectGames: (ids: GameId[]) => void;
 }
 
-const GAMES_WITH_MAPS: GameId[] = ['valorant'];
+const GAMES_WITH_MAPS: GameId[] = [];
 
 export default function QuizModeSelectionPage({
   selectedGameId,
