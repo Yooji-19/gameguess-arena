@@ -44,7 +44,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             </h1>
 
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/70 md:text-lg">
-              Identify characters, maps, and stages from your favorite games.
+              Identify characters from your favorite games.
               Build your streak, earn time bonuses, and climb the leaderboard.
             </p>
 
