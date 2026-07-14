@@ -27,7 +27,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
         <div className="absolute -left-24 top-1/3 h-96 w-96 rounded-full bg-yellow-400/10 blur-[130px]" />
         <div className="absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-yellow-400/10 blur-[120px]" />
 
-        <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl items-center px-6 pb-20 pt-28 md:px-12 lg:px-16">
+        <div className="relative z-10 mx-auto grid min-h-screen w-full max-w-7xl items-center gap-10 px-6 pb-20 pt-28 md:px-12 lg:grid-cols-[1fr_auto] lg:px-16">
           <div className="w-full max-w-xl">
             <div className="mb-5 inline-flex items-center gap-2 border border-yellow-400/40 bg-black/55 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-yellow-300 backdrop-blur-md">
               <span className="h-2 w-2 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.8)]" />
@@ -102,6 +102,42 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
               Fast answers earn more points
             </p>
           </div>
+
+          {/* Quick access QR code */}
+          <a
+            href={LINKTREE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mx-auto w-full max-w-[260px] border border-yellow-400/25 bg-black/65 p-4 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-yellow-400/70 hover:shadow-[0_0_30px_rgba(250,204,21,0.18)] lg:mx-0"
+            aria-label="Open the UEZenith Linktree"
+          >
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-yellow-300">
+                  Quick Access
+                </p>
+                <p className="mt-1 font-heading text-lg font-black uppercase text-white">
+                  Scan to Connect
+                </p>
+              </div>
+
+              <span className="material-symbols-outlined text-yellow-400 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                open_in_new
+              </span>
+            </div>
+
+            <div className="bg-white p-3">
+              <img
+                src="/uezenith-qr.png"
+                alt="QR code for the UEZenith Linktree"
+                className="aspect-square w-full object-contain"
+              />
+            </div>
+
+            <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-white/45">
+              UEZenith links and information
+            </p>
+          </a>
         </div>
 
         <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-yellow-400 to-transparent opacity-70" />
@@ -118,7 +154,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             </div>
 
             <h2 className="font-heading text-4xl font-black uppercase leading-tight text-white md:text-5xl">
-              #UNLEASH YOUR POTENTIAL
+              #UNLEASHYOURPOTENTIAL
               <span className="block text-yellow-400">Represent UEZE.</span>
             </h2>
           </div>
