@@ -120,7 +120,7 @@ const POKEMON_CHARACTER: Question[] = PKM_NAMES.map((name, i) => ({
 
 // ─── LEAGUE OF LEGENDS — 25 champions ────────────────────────────────────────
 const LOL_NAMES = ['Jinx','Yasuo','Lux','Thresh','Ahri','Teemo','Vi','Zed','Garen','Ezreal',
-  'Ashe','Darius','Katarina','Lee Sin','Vayne','Leona','Morgana','Nami','Zoe','Akali',
+  'Ashe','Darius','Katarina','Lee Sin','Vayne','Leona','Nami','Zoe','Akali',
   'Yone','Sett','Viego','Seraphine','Pyke'];
 
 const LOL_DIFF: Record<string,'Easy'|'Medium'|'Hard'> = {
